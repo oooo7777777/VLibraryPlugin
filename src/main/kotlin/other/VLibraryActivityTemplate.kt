@@ -43,9 +43,34 @@ val VLibraryActivityTemplate
         }
 
         val isModeView = booleanParameter {
-            name = "Is ModeView"
+            name = "Is ViewMode"
             default = true
-            help = "是否生成ModeView代码"
+            help = "是否生成ViewMode代码"
+        }
+
+        val title = stringParameter {
+            name = "Activity Title"
+            default = layoutName.value
+            help = "Activity标题"
+            constraints = listOf(Constraint.NONEMPTY)
+            suggest = { "${activityToLayout(activityClass.value.toCamelCase())}" }
+        }
+
+
+        val author = stringParameter {
+            name = "Activity Author"
+            default = " "
+            help = "开发者"
+            constraints = listOf(Constraint.NONEMPTY)
+
+        }
+
+        val classDesc = stringParameter {
+            name = "Activity Description"
+            default = " "
+            help = "描述一下方法的作用"
+            constraints = listOf(Constraint.NONEMPTY)
+
         }
 
 
@@ -54,7 +79,12 @@ val VLibraryActivityTemplate
                 CheckBoxWidget(isModeView),
                 TextFieldWidget(layoutName),
                 PackageNameWidget(packageName),
+                TextFieldWidget(title),
+                TextFieldWidget(classDesc),
+                TextFieldWidget(author)
         )
+
+        thumb { File("template_login_activity.png") }
 
         recipe = { data: TemplateData ->
             VLibraryActivityRecipe(
@@ -62,7 +92,10 @@ val VLibraryActivityTemplate
                     activityClass.value,
                     layoutName.value,
                     packageName.value,
-                    isModeView.value)
+                    isModeView.value,
+                    title.value,
+                    author.value,
+                    classDesc.value)
         }
     }
 

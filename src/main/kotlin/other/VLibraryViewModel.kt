@@ -7,9 +7,13 @@ package other
  */
 fun VLibraryViewModel(
         packageName:String,
-        activityClass:String
+        activityClass:String,
+        desc:String
 )="""
 package ${packageName}
+
+${desc}
+ 
 import androidx.lifecycle.MutableLiveData
 import com.v.base.BaseViewModel
 import com.v.base.utils.ext.toList

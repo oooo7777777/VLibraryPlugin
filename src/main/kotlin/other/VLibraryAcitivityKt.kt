@@ -11,11 +11,15 @@ fun VLibraryAcitivityKt(
         activityClass: String,
         layoutName: String,
         packageName: String,
-        isModeView: Boolean
+        isModeView: Boolean,
+        desc:String
 ) = if (isModeView)
 {
     """
 package ${packageName}
+
+${desc}
+
 import com.v.base.BaseActivity
 import android.view.View
 import androidx.lifecycle.Observer
@@ -33,7 +37,7 @@ class ${activityClass}Activity : BaseActivity<Activity${activityClass}Binding,${
     }
     
   override fun toolBarTitle(title: String, titleColor: Int) {
-        super.toolBarTitle("title", titleColor)
+        super.toolBarTitle(this.getString(R.string.string_${layoutName}_title), titleColor)
     }
     
     override fun initData() {
@@ -72,6 +76,9 @@ class ${activityClass}Activity : BaseActivity<Activity${activityClass}Binding,${
 {
     """
 package ${packageName}
+
+${desc}
+
 import com.v.base.BaseActivity
 import android.view.View
 import com.v.base.BlankViewModel
@@ -80,7 +87,7 @@ import ${applicationPackage}.databinding.Activity${activityClass}Binding
 class ${activityClass}Activity : BaseActivity<Activity${activityClass}Binding,BlankViewModel>(), View.OnClickListener {
    
   override fun toolBarTitle(title: String, titleColor: Int) {
-        super.toolBarTitle("title", titleColor)
+      super.toolBarTitle(this.getString(R.string.string_${layoutName}_title), titleColor)
     }
     
     override fun initData() {

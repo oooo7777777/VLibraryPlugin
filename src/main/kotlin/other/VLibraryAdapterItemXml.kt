@@ -14,7 +14,7 @@ fun VLibraryAdapterItemXml(
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="${packageName}.${activityClass}Activity">
+    tools:context="${packageName}.adapter.${activityClass}Adapter">
     
     <data>
           <variable
