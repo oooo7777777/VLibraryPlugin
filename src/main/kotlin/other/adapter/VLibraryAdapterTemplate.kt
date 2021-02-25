@@ -1,4 +1,4 @@
-package other.dialog
+package other.adapter
 
 /**
  * @Author : ww
@@ -19,11 +19,11 @@ import com.android.tools.idea.wizard.template.AssetNameConverter.Type
 
 
 
-val VLibraryDialogTemplate
+val VLibraryAdapterTemplate
     get() = template {
         revision = 1
-        name = "VLibrary Dialog"
-        description = "适用于VLibrary框架的Dialog"
+        name = "VLibrary Adapter"
+        description = "适用于VLibrary框架的Adapter"
         minApi = MIN_API
         minBuildApi = MIN_API
 
@@ -34,18 +34,10 @@ val VLibraryDialogTemplate
         val packageName = defaultPackageNameParameter
 
         val className = stringParameter {
-            name = "Dialog Name"
+            name = "Adapter Name"
             default = "Main"
-            help = "只输入名字，不要包含Dialog"
+            help = "只输入名字，不要包含Adapter"
             constraints = listOf(Constraint.NONEMPTY)
-        }
-
-        val layoutName = stringParameter {
-            name = "Layout Name"
-            default = "dialog_main"
-            help = "请输入布局的名字"
-            constraints = listOf(Constraint.LAYOUT, Constraint.UNIQUE, Constraint.NONEMPTY)
-            suggest = { "${dialogToLayout(className.value.toCamelCase())}" }
         }
 
         val author = stringParameter {
@@ -67,7 +59,6 @@ val VLibraryDialogTemplate
 
         widgets(
                 TextFieldWidget(className),
-                TextFieldWidget(layoutName),
                 PackageNameWidget(packageName),
                 TextFieldWidget(classDesc),
                 TextFieldWidget(author)
@@ -76,10 +67,9 @@ val VLibraryDialogTemplate
         thumb { File("template_login_activity.png") }
 
         recipe = { data: TemplateData ->
-            VLibraryDialogRecipe(
+            VLibraryAdapterRecipe(
                     data as ModuleTemplateData,
                     className.value,
-                    layoutName.value,
                     packageName.value,
                     author.value,
                     classDesc.value)
@@ -95,11 +85,4 @@ val defaultPackageNameParameter
         suggest = { packageName }
     }
 
-fun dialogToLayout(dialogName: String, layoutName: String? = null): String =
-        if (dialogName.isNotEmpty())
-            AssetNameConverter(Type.FRAGMENT, dialogName)
-                    .overrideLayoutPrefix(layoutName ?: "dialog")
-                    .getValue(Type.LAYOUT)
-        else
-            ""
 
