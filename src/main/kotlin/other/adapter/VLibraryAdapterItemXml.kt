@@ -1,4 +1,4 @@
-package other.viewmodel
+package other.adapter
 
 /**
  * @Author : ww

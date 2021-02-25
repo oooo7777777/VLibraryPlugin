@@ -1,9 +1,11 @@
 package other.activity
 
-import com.android.tools.idea.wizard.template.*
+import com.android.tools.idea.wizard.template.ModuleTemplateData
+import com.android.tools.idea.wizard.template.RecipeExecutor
+import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
 import com.android.tools.idea.wizard.template.impl.activities.common.generateManifest
-import other.viewmodel.VLibraryAdapter
-import other.viewmodel.VLibraryAdapterItemXml
+import other.adapter.VLibraryAdapter
+import other.adapter.VLibraryAdapterItemXml
 import other.viewmodel.VLibraryBean
 import other.viewmodel.VLibraryViewModel
 import java.text.SimpleDateFormat

@@ -5,6 +5,7 @@ import com.android.tools.idea.wizard.template.WizardTemplateProvider
 import other.activity.VLibraryActivityTemplate
 import other.dialog.VLibraryDialogTemplate
 import other.fragment.VLibraryFragmentTemplate
+import other.viewmodel.VLibraryViewModelTemplate
 
 /**
  * @Author : ww
@@ -18,5 +19,6 @@ class SamplePluginTemplateProviderImpl : WizardTemplateProvider()
             VLibraryActivityTemplate,
             VLibraryFragmentTemplate,
             VLibraryDialogTemplate,
+            VLibraryViewModelTemplate,
     )
 }
