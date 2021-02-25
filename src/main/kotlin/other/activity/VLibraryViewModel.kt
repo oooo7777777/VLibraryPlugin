@@ -7,7 +7,7 @@ package other.activity
  */
 fun VLibraryViewModel(
         packageName:String,
-        activityClass:String,
+        className:String,
         desc:String
 )="""
 package ${packageName}.model
@@ -18,11 +18,11 @@ import androidx.lifecycle.MutableLiveData
 import com.v.base.BaseViewModel
 import com.v.base.utils.ext.toList
 import com.v.base.net.RetrofitManager
-import ${packageName}.bean.${activityClass}Bean
+import ${packageName}.bean.${className}Bean
 
-class ${activityClass}ViewModel : BaseViewModel() {
+class ${className}ViewModel : BaseViewModel() {
 
-    var listBean = MutableLiveData<List<${activityClass}Bean>>()
+    var listBean = MutableLiveData<List<${className}Bean>>()
 
      fun getList(page: Int) {
 
@@ -33,7 +33,7 @@ class ${activityClass}ViewModel : BaseViewModel() {
         request({
             RetrofitManager.instance.get("data/category/Girl/type/Girl/page/page/count/20",map)
         }, success = {
-               listBean.value = it.toString().toList(${activityClass}Bean::class.java)
+               listBean.value = it.toString().toList(${className}Bean::class.java)
         })
 
     }

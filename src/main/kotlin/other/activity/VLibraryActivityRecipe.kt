@@ -17,7 +17,7 @@ import java.util.*
 
 fun RecipeExecutor.VLibraryActivityRecipe(
         moduleData: ModuleTemplateData,
-        activityClass: String,
+        className: String,
         layoutName: String,
         packageName: String,
         isModeView: Boolean,
@@ -41,13 +41,13 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
 
-    val activity = VLibraryAcitivityKt(escapeKotlinIdentifier(packageName), activityClass, layoutName, packageName, isModeView, headerString)
+    val activity = VLibraryAcitivityKt(escapeKotlinIdentifier(packageName), className, layoutName, packageName, isModeView, headerString)
 
     // 保存Activity
-    save(activity, srcOut.resolve("${activityClass}Activity.${ktOrJavaExt}"))
+    save(activity, srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryActivityXml(escapeKotlinIdentifier(packageName),packageName, activityClass, isModeView), resOut.resolve("layout/${layoutName}.xml"))
+    save(VLibraryActivityXml(escapeKotlinIdentifier(packageName),packageName, className, isModeView), resOut.resolve("layout/${layoutName}.xml"))
 
     // 保存titleString
     mergeXml(VLibraryTitleString(layoutName, title), resOut.resolve("values/strings.xml"))
@@ -55,27 +55,27 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     if (isModeView)
     {
         // 保存viewModel
-        save(VLibraryViewModel(packageName, activityClass, headerString), srcOut.resolve("model/${activityClass}ViewModel.${ktOrJavaExt}"))
+        save(VLibraryViewModel(packageName, className, headerString), srcOut.resolve("model/${className}ViewModel.${ktOrJavaExt}"))
         // 保存bean
-        save(VLibraryBean(packageName, activityClass, headerString), srcOut.resolve("bean/${activityClass}Bean.${ktOrJavaExt}"))
+        save(VLibraryBean(packageName, className, headerString), srcOut.resolve("bean/${className}Bean.${ktOrJavaExt}"))
         // 保存adapter
-        save(VLibraryAdapter(escapeKotlinIdentifier(packageName), packageName, activityClass, layoutName, headerString), srcOut.resolve("adapter/${activityClass}Adapter.${ktOrJavaExt}"))
+        save(VLibraryAdapter(escapeKotlinIdentifier(packageName), packageName, className, layoutName, headerString), srcOut.resolve("adapter/${className}Adapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
-        save(VLibraryAdapterItemXml(escapeKotlinIdentifier(packageName),packageName, activityClass), resOut.resolve("layout/${layoutName}_item.xml"))
+        save(VLibraryAdapterItemXml(escapeKotlinIdentifier(packageName),packageName, className), resOut.resolve("layout/${layoutName}_item.xml"))
 
     }
 
     //添加activity到Manifest
     generateManifest(
             moduleData = moduleData,
-            activityClass = "${activityClass}Activity",
-            activityTitle = activityClass,
+            activityClass = "${className}Activity",
+            activityTitle = className,
             packageName = packageName,
             isLauncher = false,
             hasNoActionBar = false,
             generateActivityTitle = false
     )
 
-    open(srcOut.resolve("${activityClass}Activity.${ktOrJavaExt}"))
+    open(srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
 
 }

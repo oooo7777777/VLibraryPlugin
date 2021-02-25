@@ -8,7 +8,7 @@ package other.activity
 fun VLibraryActivityXml(
         applicationPackage: String,
         packageName: String,
-        activityClass: String,
+        className: String,
         isModeView: Boolean
 ) = if (isModeView)
         {
@@ -17,13 +17,13 @@ fun VLibraryActivityXml(
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="${packageName}.${activityClass}Activity">
+    tools:context="${packageName}.${className}Activity">
     
     <data>
           <import type="${applicationPackage}.R" />
           <variable
             name="v"
-            type="${packageName}.${activityClass}Activity" />
+            type="${packageName}.${className}Activity" />
     </data>
     
       <LinearLayout
@@ -54,13 +54,13 @@ fun VLibraryActivityXml(
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="${packageName}.${activityClass}Activity">
+    tools:context="${packageName}.${className}Activity">
 
     <data>
           <import type="${applicationPackage}.R" />
           <variable
             name="v"
-            type="${packageName}.${activityClass}Activity" />
+            type="${packageName}.${className}Activity" />
     </data>
     
      <LinearLayout

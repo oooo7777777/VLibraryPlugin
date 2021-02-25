@@ -9,19 +9,19 @@ package other.activity
 fun VLibraryAdapterItemXml(
         applicationPackage: String,
         packageName: String,
-        activityClass: String
+        className: String
 ) = """
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="${packageName}.adapter.${activityClass}Adapter">
+    tools:context="${packageName}.adapter.${className}Adapter">
     
     <data>
           <import type="${applicationPackage}.R" />
           <variable
             name="bean"
-            type="${packageName}.bean.${activityClass}Bean" />
+            type="${packageName}.bean.${className}Bean" />
     </data>
     
       <LinearLayout

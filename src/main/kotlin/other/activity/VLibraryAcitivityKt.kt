@@ -8,7 +8,7 @@ package other.activity
 
 fun VLibraryAcitivityKt(
         applicationPackage: String,
-        activityClass: String,
+        className: String,
         layoutName: String,
         packageName: String,
         isModeView: Boolean,
@@ -25,15 +25,15 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.v.base.utils.ext.linear
 import com.v.base.utils.ext.loadData
-import ${packageName}.adapter.${activityClass}Adapter
-import ${applicationPackage}.databinding.Activity${activityClass}Binding
+import ${packageName}.adapter.${className}Adapter
+import ${applicationPackage}.databinding.Activity${className}Binding
 
-class ${activityClass}Activity : BaseActivity<Activity${activityClass}Binding,${activityClass}ViewModel>(), View.OnClickListener {
+class ${className}Activity : BaseActivity<Activity${className}Binding,${className}ViewModel>(), View.OnClickListener {
    
   var page =1
   
   private val mAdapter by lazy {
-        mViewBinding.recyclerView.linear(${activityClass}Adapter()) as ${activityClass}Adapter
+        mViewBinding.recyclerView.linear(${className}Adapter()) as ${className}Adapter
     }
     
   override fun toolBarTitle(title: String, titleColor: Int) {
@@ -82,9 +82,9 @@ ${desc}
 import com.v.base.BaseActivity
 import android.view.View
 import com.v.base.BlankViewModel
-import ${applicationPackage}.databinding.Activity${activityClass}Binding
+import ${applicationPackage}.databinding.Activity${className}Binding
 
-class ${activityClass}Activity : BaseActivity<Activity${activityClass}Binding,BlankViewModel>(), View.OnClickListener {
+class ${className}Activity : BaseActivity<Activity${className}Binding,BlankViewModel>(), View.OnClickListener {
    
   override fun toolBarTitle(title: String, titleColor: Int) {
       super.toolBarTitle(this.getString(R.string.string_${layoutName}_title), titleColor)

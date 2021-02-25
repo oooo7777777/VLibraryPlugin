@@ -8,14 +8,14 @@ package other.activity
 
 fun VLibraryBean(
         packageName:String,
-        activityClass:String,
+        className:String,
         desc:String
 )="""
 package ${packageName}.bean
 
 ${desc}
 
-data class ${activityClass}Bean(
+data class ${className}Bean(
     val content: String
 )
 """

@@ -27,7 +27,7 @@ val VLibraryActivityTemplate
 
         val packageName = defaultPackageNameParameter
 
-        val activityClass = stringParameter {
+        val className = stringParameter {
             name = "Activity Name"
             default = "Main"
             help = "只输入名字，不要包含Activity"
@@ -39,7 +39,7 @@ val VLibraryActivityTemplate
             default = "activity_main"
             help = "请输入布局的名字"
             constraints = listOf(Constraint.LAYOUT, Constraint.UNIQUE, Constraint.NONEMPTY)
-            suggest = { "${activityToLayout(activityClass.value.toCamelCase())}" }
+            suggest = { "${activityToLayout(className.value.toCamelCase())}" }
         }
 
         val isModeView = booleanParameter {
@@ -53,7 +53,7 @@ val VLibraryActivityTemplate
             default = layoutName.value
             help = "Activity标题"
             constraints = listOf(Constraint.NONEMPTY)
-            suggest = { "${activityToLayout(activityClass.value.toCamelCase())}" }
+            suggest = { "${activityToLayout(className.value.toCamelCase())}" }
         }
 
 
@@ -75,7 +75,7 @@ val VLibraryActivityTemplate
 
 
         widgets(
-                TextFieldWidget(activityClass),
+                TextFieldWidget(className),
                 CheckBoxWidget(isModeView),
                 TextFieldWidget(layoutName),
                 PackageNameWidget(packageName),
@@ -89,7 +89,7 @@ val VLibraryActivityTemplate
         recipe = { data: TemplateData ->
             VLibraryActivityRecipe(
                     data as ModuleTemplateData,
-                    activityClass.value,
+                    className.value,
                     layoutName.value,
                     packageName.value,
                     isModeView.value,
