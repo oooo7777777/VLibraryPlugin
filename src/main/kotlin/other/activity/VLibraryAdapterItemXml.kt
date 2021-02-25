@@ -1,4 +1,4 @@
-package other
+package other.activity
 
 /**
  * @Author : ww
@@ -7,6 +7,7 @@ package other
  */
 
 fun VLibraryAdapterItemXml(
+        applicationPackage: String,
         packageName: String,
         activityClass: String
 ) = """
@@ -17,6 +18,7 @@ fun VLibraryAdapterItemXml(
     tools:context="${packageName}.adapter.${activityClass}Adapter">
     
     <data>
+          <import type="${applicationPackage}.R" />
           <variable
             name="bean"
             type="${packageName}.bean.${activityClass}Bean" />

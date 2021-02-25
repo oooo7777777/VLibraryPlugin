@@ -1,4 +1,4 @@
-package other
+package other.activity
 
 /**
  * @Author : ww
@@ -47,7 +47,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     save(activity, srcOut.resolve("${activityClass}Activity.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryActivityXml(packageName, activityClass, isModeView), resOut.resolve("layout/${layoutName}.xml"))
+    save(VLibraryActivityXml(escapeKotlinIdentifier(packageName),packageName, activityClass, isModeView), resOut.resolve("layout/${layoutName}.xml"))
 
     // 保存titleString
     mergeXml(VLibraryTitleString(layoutName, title), resOut.resolve("values/strings.xml"))
@@ -61,7 +61,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         // 保存adapter
         save(VLibraryAdapter(escapeKotlinIdentifier(packageName), packageName, activityClass, layoutName, headerString), srcOut.resolve("adapter/${activityClass}Adapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
-        save(VLibraryAdapterItemXml(packageName, activityClass), resOut.resolve("layout/${layoutName}_item.xml"))
+        save(VLibraryAdapterItemXml(escapeKotlinIdentifier(packageName),packageName, activityClass), resOut.resolve("layout/${layoutName}_item.xml"))
 
     }
 

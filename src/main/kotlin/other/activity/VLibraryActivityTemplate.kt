@@ -1,4 +1,4 @@
-package other
+package other.activity
 
 /**
  * @Author : ww
@@ -58,7 +58,7 @@ val VLibraryActivityTemplate
 
 
         val author = stringParameter {
-            name = "Activity Author"
+            name = "Author"
             default = " "
             help = "开发者"
             constraints = listOf(Constraint.NONEMPTY)
@@ -66,7 +66,7 @@ val VLibraryActivityTemplate
         }
 
         val classDesc = stringParameter {
-            name = "Activity Description"
+            name = "Description"
             default = " "
             help = "描述一下方法的作用"
             constraints = listOf(Constraint.NONEMPTY)

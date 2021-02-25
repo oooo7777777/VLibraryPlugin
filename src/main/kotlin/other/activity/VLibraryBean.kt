@@ -1,4 +1,4 @@
-package other
+package other.activity
 
 /**
  * @Author : ww

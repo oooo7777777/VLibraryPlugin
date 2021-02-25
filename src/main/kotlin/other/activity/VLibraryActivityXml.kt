@@ -1,4 +1,4 @@
-package other
+package other.activity
 
 /**
  * @Author : ww
@@ -6,6 +6,7 @@ package other
  * time    : 2021/2/19 11:12
  */
 fun VLibraryActivityXml(
+        applicationPackage: String,
         packageName: String,
         activityClass: String,
         isModeView: Boolean
@@ -19,6 +20,7 @@ fun VLibraryActivityXml(
     tools:context="${packageName}.${activityClass}Activity">
     
     <data>
+          <import type="${applicationPackage}.R" />
           <variable
             name="v"
             type="${packageName}.${activityClass}Activity" />
@@ -55,6 +57,7 @@ fun VLibraryActivityXml(
     tools:context="${packageName}.${activityClass}Activity">
 
     <data>
+          <import type="${applicationPackage}.R" />
           <variable
             name="v"
             type="${packageName}.${activityClass}Activity" />

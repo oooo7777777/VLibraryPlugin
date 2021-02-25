@@ -1,4 +1,4 @@
-package other
+package other.activity
 
 /**
  * @Author : ww
@@ -10,14 +10,14 @@ fun VLibraryViewModel(
         activityClass:String,
         desc:String
 )="""
-package ${packageName}
+package ${packageName}.model
 
 ${desc}
  
 import androidx.lifecycle.MutableLiveData
 import com.v.base.BaseViewModel
 import com.v.base.utils.ext.toList
-import com.ww.appmodule.net.RetrofitManager
+import com.v.base.net.RetrofitManager
 import ${packageName}.bean.${activityClass}Bean
 
 class ${activityClass}ViewModel : BaseViewModel() {
