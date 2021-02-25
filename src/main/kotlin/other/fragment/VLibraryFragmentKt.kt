@@ -1,6 +1,4 @@
-package other.activity
-
-import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
+package other.fragment
 
 /**
  * @Author : ww
@@ -8,7 +6,7 @@ import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
  * time    : 2021/2/19 11:10
  */
 
-fun VLibraryAcitivityKt(
+fun VLibraryFragmentKt(
         applicationPackage: String,
         className: String,
         layoutName: String,
@@ -22,29 +20,24 @@ package ${packageName}
 
 ${desc}
 
-import com.v.base.BaseActivity
+import com.v.base.BaseFragment
 import android.view.View
 import androidx.lifecycle.Observer
 import com.v.base.utils.ext.linear
 import com.v.base.utils.ext.loadData
-import ${packageName}.adapter.${className}ActivityAdapter
-import ${applicationPackage}.databinding.Activity${className}Binding
+import ${packageName}.adapter.${className}FragmentAdapter
+import ${applicationPackage}.databinding.Fragment${className}Binding
 import ${applicationPackage}.model.${className}ViewModel
-import ${escapeKotlinIdentifier(packageName)}.R
 
 
-class ${className}Activity : BaseActivity<Activity${className}Binding,${className}ViewModel>(), View.OnClickListener {
+class ${className}Fragment : BaseFragment<Fragment${className}Binding,${className}ViewModel>(), View.OnClickListener {
    
   var page =1
   
   private val mAdapter by lazy {
-        mViewBinding.recyclerView.linear(${className}ActivityAdapter()) as ${className}ActivityAdapter
+        mViewBinding.recyclerView.linear(${className}FragmentAdapter()) as ${className}FragmentAdapter
     }
-    
-  override fun toolBarTitle(title: String, titleColor: Int) {
-        super.toolBarTitle(this.getString(R.string.string_${layoutName}_title), titleColor)
-    }
-    
+
     override fun initData() {
         mViewBinding.v = this
         mViewBinding.refreshLayout.autoRefresh()
@@ -84,17 +77,14 @@ package ${packageName}
 
 ${desc}
 
-import com.v.base.BaseActivity
+import com.v.base.BaseFragment
 import android.view.View
 import com.v.base.BlankViewModel
-import ${applicationPackage}.databinding.Activity${className}Binding
+import ${applicationPackage}.databinding.Fragment${className}Binding
 
-class ${className}Activity : BaseActivity<Activity${className}Binding,BlankViewModel>(), View.OnClickListener {
+class ${className}Fragment : BaseFragment<Fragment${className}Binding,BlankViewModel>(), View.OnClickListener {
    
-  override fun toolBarTitle(title: String, titleColor: Int) {
-      super.toolBarTitle(this.getString(R.string.string_${layoutName}_title), titleColor)
-    }
-    
+ 
     override fun initData() {
         mViewBinding.v = this
     }

@@ -1,4 +1,4 @@
-package other.activity
+package other.viewmodel
 
 /**
  * @Author : ww
@@ -10,6 +10,7 @@ fun VLibraryAdapter(
         applicationPackage: String,
         packageName:String,
         className:String,
+        classType:String,
         layoutName:String,
         desc:String
 )="""
@@ -21,12 +22,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import ${applicationPackage}.R
 import ${packageName}.bean.${className}Bean
-import ${applicationPackage}.databinding.Activity${className}ItemBinding
+import ${applicationPackage}.databinding.${classType}${className}ItemBinding
 
-class ${className}Adapter :
-    BaseQuickAdapter<${className}Bean, BaseDataBindingHolder<Activity${className}ItemBinding>>(R.layout.${layoutName}_item) {
+class ${className}${classType}Adapter :
+    BaseQuickAdapter<${className}Bean, BaseDataBindingHolder<${classType}${className}ItemBinding>>(R.layout.${layoutName}_item) {
 
-    override fun convert(holder: BaseDataBindingHolder<Activity${className}ItemBinding>, item: ${className}Bean) {
+    override fun convert(holder: BaseDataBindingHolder<${classType}${className}ItemBinding>, item: ${className}Bean) {
         holder.dataBinding?.run {
             bean = item
             executePendingBindings()

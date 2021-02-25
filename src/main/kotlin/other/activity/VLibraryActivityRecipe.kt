@@ -1,18 +1,20 @@
 package other.activity
 
+import com.android.tools.idea.wizard.template.*
+import com.android.tools.idea.wizard.template.impl.activities.common.generateManifest
+import other.viewmodel.VLibraryAdapter
+import other.viewmodel.VLibraryAdapterItemXml
+import other.viewmodel.VLibraryBean
+import other.viewmodel.VLibraryViewModel
+import java.text.SimpleDateFormat
+import java.util.*
+
 /**
  * @Author : ww
  * desc    :
  * time    : 2021/2/19 11:10
  */
 
-import com.android.tools.idea.wizard.template.ModuleTemplateData
-import com.android.tools.idea.wizard.template.RecipeExecutor
-import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
-import com.android.tools.idea.wizard.template.impl.activities.common.generateManifest
-import com.android.tools.idea.wizard.template.impl.activities.common.generateManifestStrings
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 fun RecipeExecutor.VLibraryActivityRecipe(
@@ -40,17 +42,21 @@ fun RecipeExecutor.VLibraryActivityRecipe(
 
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
+    val applicationPackage = escapeKotlinIdentifier(packageName)
 
-    val activity = VLibraryAcitivityKt(escapeKotlinIdentifier(packageName), className, layoutName, packageName, isModeView, headerString)
+
+    val activity = VLibraryAcitivityKt(applicationPackage, className, layoutName, packageName, isModeView, headerString)
+
 
     // 保存Activity
     save(activity, srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryActivityXml(escapeKotlinIdentifier(packageName),packageName, className, isModeView), resOut.resolve("layout/${layoutName}.xml"))
+    save(VLibraryActivityXml(applicationPackage, packageName, className, isModeView), resOut.resolve("layout/${layoutName}.xml"))
 
     // 保存titleString
     mergeXml(VLibraryTitleString(layoutName, title), resOut.resolve("values/strings.xml"))
+
 
     if (isModeView)
     {
@@ -59,9 +65,9 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         // 保存bean
         save(VLibraryBean(packageName, className, headerString), srcOut.resolve("bean/${className}Bean.${ktOrJavaExt}"))
         // 保存adapter
-        save(VLibraryAdapter(escapeKotlinIdentifier(packageName), packageName, className, layoutName, headerString), srcOut.resolve("adapter/${className}Adapter.${ktOrJavaExt}"))
+        save(VLibraryAdapter(applicationPackage, packageName, className,"Activity", layoutName, headerString), srcOut.resolve("adapter/${className}ActivityAdapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
-        save(VLibraryAdapterItemXml(escapeKotlinIdentifier(packageName),packageName, className), resOut.resolve("layout/${layoutName}_item.xml"))
+        save(VLibraryAdapterItemXml(applicationPackage, packageName, className,"Activity"), resOut.resolve("layout/${layoutName}_item.xml"))
 
     }
 

@@ -1,4 +1,4 @@
-package other.activity
+package other.viewmodel
 
 /**
  * @Author : ww
