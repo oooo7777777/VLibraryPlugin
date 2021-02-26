@@ -60,9 +60,9 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
         // 保存bean
         save(VLibraryBean(packageName, className, headerString), srcOut.resolve("bean/${className}Bean.${ktOrJavaExt}"))
         // 保存adapter
-        save(VLibraryAdapter(applicationPackage, packageName, className, "Fragment", layoutName, headerString), srcOut.resolve("adapter/${className}FragmentAdapter.${ktOrJavaExt}"))
+        save(VLibraryAdapter(applicationPackage, packageName, className, "Fragment", "item_${layoutName}", headerString), srcOut.resolve("adapter/${className}FragmentAdapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
-        save(VLibraryAdapterItemXml(applicationPackage, packageName, className,"Fragment"), resOut.resolve("layout/${layoutName}_item.xml"))
+        save(VLibraryAdapterItemXml(applicationPackage, packageName, className,"Fragment"), resOut.resolve("layout/item_${layoutName}.xml"))
 
     }
 

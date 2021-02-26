@@ -9,8 +9,6 @@ package other.dialog
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
-import com.android.tools.idea.wizard.template.impl.activities.common.generateManifest
-import com.android.tools.idea.wizard.template.impl.activities.common.generateManifestStrings
 import java.text.SimpleDateFormat
 import java.util.*
 

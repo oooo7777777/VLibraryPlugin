@@ -7,12 +7,10 @@ package other.adapter
  */
 
 import android.databinding.tool.ext.toCamelCase
-import com.android.tools.idea.wizard.template.*
-import com.android.tools.idea.wizard.template.activityToLayout
-import com.android.tools.idea.wizard.template.impl.activities.common.generateManifest
-import com.android.tools.idea.wizard.template.impl.activities.common.generateManifestStrings
-import other.dialog.VLibraryDialogKt
-import other.dialog.VLibraryDialogXml
+import com.android.tools.idea.wizard.template.AssetNameConverter
+import com.android.tools.idea.wizard.template.ModuleTemplateData
+import com.android.tools.idea.wizard.template.RecipeExecutor
+import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
 import other.viewmodel.VLibraryBean
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,18 +45,18 @@ fun RecipeExecutor.VLibraryAdapterRecipe(
     // 保存adapter
     save(VLibraryAdapter(applicationPackage, packageName, className,"", layoutName, headerString), srcOut.resolve("adapter/${className}Adapter.${ktOrJavaExt}"))
     // 保存adapterItemXml
-    save(VLibraryAdapterItemXml(applicationPackage, packageName, className,""), resOut.resolve("layout/${layoutName}_item.xml"))
+    save(VLibraryAdapterItemXml(applicationPackage, packageName, className,""), resOut.resolve("layout/${layoutName}.xml"))
     // 保存bean
     save(VLibraryBean(packageName, className, headerString), srcOut.resolve("bean/${className}Bean.${ktOrJavaExt}"))
     
-    open(srcOut.resolve("dialog/${className}Dialog.${ktOrJavaExt}"))
+    open(srcOut.resolve("adapter/${className}Adapter.${ktOrJavaExt}"))
 
 }
 
 fun classToLayout(className: String, layoutName: String? = null): String =
         if (className.isNotEmpty())
             AssetNameConverter(AssetNameConverter.Type.FRAGMENT, className)
-                    .overrideLayoutPrefix(layoutName ?: "")
+                    .overrideLayoutPrefix(layoutName ?: "item")
                     .getValue(AssetNameConverter.Type.LAYOUT)
         else
             ""

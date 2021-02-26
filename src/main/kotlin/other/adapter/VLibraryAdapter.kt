@@ -22,12 +22,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import ${applicationPackage}.R
 import ${packageName}.bean.${className}Bean
-import ${applicationPackage}.databinding.${classType}${className}ItemBinding
+import ${applicationPackage}.databinding.Item${classType}${className}Binding
 
 class ${className}${classType}Adapter :
-    BaseQuickAdapter<${className}Bean, BaseDataBindingHolder<${classType}${className}ItemBinding>>(R.layout.${layoutName}_item) {
+    BaseQuickAdapter<${className}Bean, BaseDataBindingHolder<Item${classType}${className}Binding>>(R.layout.${layoutName}) {
 
-    override fun convert(holder: BaseDataBindingHolder<${classType}${className}ItemBinding>, item: ${className}Bean) {
+    override fun convert(holder: BaseDataBindingHolder<Item${classType}${className}Binding>, item: ${className}Bean) {
         holder.dataBinding?.run {
             bean = item
             executePendingBindings()

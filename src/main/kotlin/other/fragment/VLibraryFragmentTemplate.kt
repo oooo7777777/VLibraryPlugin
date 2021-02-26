@@ -6,17 +6,9 @@ package other.fragment
  * time    : 2021/2/19 11:09
  */
 import android.databinding.tool.ext.toCamelCase
-import android.databinding.tool.ext.toCamelCaseAsVar
-import com.android.tools.idea.res.getResourceName
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
-import com.intellij.openapi.util.IconLoader
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.toUpperCaseAsciiOnly
-import other.activity.VLibraryActivityRecipe
 import java.io.File
-import com.android.tools.idea.wizard.template.AssetNameConverter.Type
-
 
 
 val VLibraryFragmentTemplate
@@ -74,7 +66,6 @@ val VLibraryFragmentTemplate
         widgets(
                 TextFieldWidget(className),
                 CheckBoxWidget(isModeView),
-                TextFieldWidget(layoutName),
                 PackageNameWidget(packageName),
                 TextFieldWidget(classDesc),
                 TextFieldWidget(author)
@@ -86,7 +77,7 @@ val VLibraryFragmentTemplate
             VLibraryFragmentRecipe(
                     data as ModuleTemplateData,
                     className.value,
-                    layoutName.value,
+                    "${activityToLayout(className.value.toCamelCase())}",
                     packageName.value,
                     isModeView.value,
                     author.value,

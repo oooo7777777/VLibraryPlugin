@@ -9,7 +9,8 @@ fun VLibraryActivityXml(
         applicationPackage: String,
         packageName: String,
         className: String,
-        isModeView: Boolean
+        isModeView: Boolean,
+        layoutName:String
 ) = if (isModeView)
         {
             """
@@ -40,7 +41,8 @@ fun VLibraryActivityXml(
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
-                android:scrollbars="none" />
+                android:scrollbars="none" 
+                tools:listitem="@layout/item_${layoutName}"/>
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 

@@ -6,10 +6,8 @@ package other.activity
  * time    : 2021/2/19 11:09
  */
 import android.databinding.tool.ext.toCamelCase
-import com.android.tools.idea.res.getResourceName
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
-import com.intellij.openapi.util.IconLoader
 import java.io.File
 
 
@@ -77,7 +75,6 @@ val VLibraryActivityTemplate
         widgets(
                 TextFieldWidget(className),
                 CheckBoxWidget(isModeView),
-                TextFieldWidget(layoutName),
                 PackageNameWidget(packageName),
                 TextFieldWidget(title),
                 TextFieldWidget(classDesc),
@@ -90,7 +87,7 @@ val VLibraryActivityTemplate
             VLibraryActivityRecipe(
                     data as ModuleTemplateData,
                     className.value,
-                    layoutName.value,
+                    "${activityToLayout(className.value.toCamelCase())}",
                     packageName.value,
                     isModeView.value,
                     title.value,

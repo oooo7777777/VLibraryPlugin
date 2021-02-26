@@ -1,5 +1,6 @@
 package other.activity
 
+import com.android.tools.idea.wizard.template.Constraint
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
@@ -54,7 +55,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     save(activity, srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryActivityXml(applicationPackage, packageName, className, isModeView), resOut.resolve("layout/${layoutName}.xml"))
+    save(VLibraryActivityXml(applicationPackage, packageName, className, isModeView,layoutName), resOut.resolve("layout/${layoutName}.xml"))
 
     // 保存titleString
     mergeXml(VLibraryTitleString(layoutName, title), resOut.resolve("values/strings.xml"))
@@ -67,9 +68,9 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         // 保存bean
         save(VLibraryBean(packageName, className, headerString), srcOut.resolve("bean/${className}Bean.${ktOrJavaExt}"))
         // 保存adapter
-        save(VLibraryAdapter(applicationPackage, packageName, className,"Activity", layoutName, headerString), srcOut.resolve("adapter/${className}ActivityAdapter.${ktOrJavaExt}"))
+        save(VLibraryAdapter(applicationPackage, packageName, className,"Activity", "item_${layoutName}", headerString), srcOut.resolve("adapter/${className}ActivityAdapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
-        save(VLibraryAdapterItemXml(applicationPackage, packageName, className,"Activity"), resOut.resolve("layout/${layoutName}_item.xml"))
+        save(VLibraryAdapterItemXml(applicationPackage, packageName, className,"Activity"), resOut.resolve("layout/item_${layoutName}.xml"))
 
     }
 

@@ -42,7 +42,7 @@ fun VLibraryFragmentXml(
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
                 android:scrollbars="none" 
-                tools:listitem="@layout/${layoutName}_item" />
+                tools:listitem="@layout/item_${layoutName}" />
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
