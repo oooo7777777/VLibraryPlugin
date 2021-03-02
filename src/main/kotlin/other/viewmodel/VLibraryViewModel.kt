@@ -6,11 +6,11 @@ package other.viewmodel
  * time    : 2021/2/19 11:11
  */
 fun VLibraryViewModel(
-        packageName:String,
+        applicationPackage:String,
         className:String,
         desc:String
 )="""
-package ${packageName}.model
+package ${applicationPackage}.model
 
 ${desc}
  
@@ -18,7 +18,7 @@ import androidx.lifecycle.MutableLiveData
 import com.v.base.BaseViewModel
 import com.v.base.utils.ext.toList
 import com.v.base.net.RetrofitManager
-import ${packageName}.bean.${className}Bean
+import ${applicationPackage}.bean.${className}Bean
 
 class ${className}ViewModel : BaseViewModel() {
 

@@ -14,13 +14,13 @@ fun VLibraryDialogXml(
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="${packageName}.dialog.${className}Dialog">
+    tools:context="${applicationPackage}.dialog.${className}Dialog">
 
     <data>
           <import type="${applicationPackage}.R" />
           <variable
             name="v"
-            type="${packageName}.dialog.${className}Dialog" />
+            type="${applicationPackage}.dialog.${className}Dialog" />
     </data>
     
       <RelativeLayout

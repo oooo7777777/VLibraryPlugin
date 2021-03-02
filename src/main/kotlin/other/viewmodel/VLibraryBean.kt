@@ -7,11 +7,11 @@ package other.viewmodel
  */
 
 fun VLibraryBean(
-        packageName:String,
+        applicationPackage:String,
         className:String,
         desc:String
 )="""
-package ${packageName}.bean
+package ${applicationPackage}.bean
 
 ${desc}
 

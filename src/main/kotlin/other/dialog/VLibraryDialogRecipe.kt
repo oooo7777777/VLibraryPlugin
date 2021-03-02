@@ -9,6 +9,7 @@ package other.dialog
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
+import other.utlis.getApplicationPackageFile
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,17 +37,24 @@ fun RecipeExecutor.VLibraryDialogRecipe(
 
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
+    var applicationPackage = projectData.applicationPackage
+
+    if (applicationPackage.isNullOrEmpty())
+    {
+        applicationPackage = escapeKotlinIdentifier(packageName)
+    }
+    //获取包名根目录
+    val  pkFile =  getApplicationPackageFile(srcOut,applicationPackage)
+
+    val dialog = VLibraryDialogKt(applicationPackage, className, layoutName, packageName, headerString)
 
 
-    val dialog = VLibraryDialogKt(escapeKotlinIdentifier(packageName), className, layoutName, packageName, headerString)
+    save(dialog, pkFile.resolve("dialog/${className}Dialog.${ktOrJavaExt}"))
 
 
-    save(dialog, srcOut.resolve("dialog/${className}Dialog.${ktOrJavaExt}"))
+    save(VLibraryDialogXml(applicationPackage,packageName, className), resOut.resolve("layout/${layoutName}.xml"))
 
 
-    save(VLibraryDialogXml(escapeKotlinIdentifier(packageName),packageName, className), resOut.resolve("layout/${layoutName}.xml"))
-
-
-    open(srcOut.resolve("dialog/${className}Dialog.${ktOrJavaExt}"))
+    open(pkFile.resolve("dialog/${className}Dialog.${ktOrJavaExt}"))
 
 }

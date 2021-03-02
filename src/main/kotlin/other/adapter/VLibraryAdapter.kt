@@ -8,20 +8,19 @@ package other.adapter
 
 fun VLibraryAdapter(
         applicationPackage: String,
-        packageName:String,
         className:String,
         classType:String,
         layoutName:String,
         desc:String
 )="""
-package ${packageName}.adapter
+package ${applicationPackage}.adapter
 
 ${desc}
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import ${applicationPackage}.R
-import ${packageName}.bean.${className}Bean
+import ${applicationPackage}.bean.${className}Bean
 import ${applicationPackage}.databinding.Item${classType}${className}Binding
 
 class ${className}${classType}Adapter :

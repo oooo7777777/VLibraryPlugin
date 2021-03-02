@@ -12,6 +12,7 @@ import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
 import other.activity.VLibraryFragmentXml
 import other.adapter.VLibraryAdapter
 import other.adapter.VLibraryAdapterItemXml
+import other.utlis.getApplicationPackageFile
 import other.viewmodel.VLibraryBean
 import other.viewmodel.VLibraryViewModel
 import java.text.SimpleDateFormat
@@ -49,6 +50,9 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
         applicationPackage = escapeKotlinIdentifier(packageName)
     }
 
+    //获取包名根目录
+    val  pkFile =  getApplicationPackageFile(srcOut,applicationPackage)
+
     val activity = VLibraryFragmentKt(applicationPackage, className, layoutName, packageName, isModeView, headerString)
 
     // 保存Fragment
@@ -61,11 +65,11 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
     if (isModeView)
     {
         // 保存viewModel
-        save(VLibraryViewModel(packageName, className, headerString), srcOut.resolve("model/${className}ViewModel.${ktOrJavaExt}"))
+        save(VLibraryViewModel(applicationPackage, className, headerString), pkFile.resolve("model/${className}ViewModel.${ktOrJavaExt}"))
         // 保存bean
-        save(VLibraryBean(packageName, className, headerString), srcOut.resolve("bean/${className}Bean.${ktOrJavaExt}"))
+        save(VLibraryBean(applicationPackage, className, headerString), pkFile.resolve("bean/${className}Bean.${ktOrJavaExt}"))
         // 保存adapter
-        save(VLibraryAdapter(applicationPackage, packageName, className, "Fragment", "item_${layoutName}", headerString), srcOut.resolve("adapter/${className}FragmentAdapter.${ktOrJavaExt}"))
+        save(VLibraryAdapter(applicationPackage, className, "Fragment", "item_${layoutName}", headerString), pkFile.resolve("adapter/${className}FragmentAdapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
         save(VLibraryAdapterItemXml(applicationPackage, packageName, className,"Fragment"), resOut.resolve("layout/item_${layoutName}.xml"))
 

@@ -13,7 +13,7 @@ fun VLibraryDialogKt(
         packageName: String,
         desc: String
 ) = """
-package ${packageName}.dialog
+package ${applicationPackage}.dialog
 
 ${desc}
 

@@ -16,13 +16,13 @@ fun VLibraryAdapterItemXml(
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="${packageName}.adapter.${className}${classType}Adapter">
+    tools:context="${applicationPackage}.adapter.${className}${classType}Adapter">
     
     <data>
           <import type="${applicationPackage}.R" />
           <variable
             name="bean"
-            type="${packageName}.bean.${className}Bean" />
+            type="${applicationPackage}.bean.${className}Bean" />
     </data>
     
       <LinearLayout
