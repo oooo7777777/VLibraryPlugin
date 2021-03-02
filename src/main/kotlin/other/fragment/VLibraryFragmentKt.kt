@@ -26,8 +26,8 @@ import androidx.lifecycle.Observer
 import com.v.base.utils.ext.linear
 import com.v.base.utils.ext.loadData
 import ${packageName}.adapter.${className}FragmentAdapter
+import ${packageName}.model.${className}ViewModel
 import ${applicationPackage}.databinding.Fragment${className}Binding
-import ${applicationPackage}.model.${className}ViewModel
 
 
 class ${className}Fragment : BaseFragment<Fragment${className}Binding,${className}ViewModel>(), View.OnClickListener {

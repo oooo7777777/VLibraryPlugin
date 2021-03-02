@@ -1,7 +1,5 @@
 package other.activity
 
-import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
-
 /**
  * @Author : ww
  * desc    :
@@ -28,9 +26,9 @@ import androidx.lifecycle.Observer
 import com.v.base.utils.ext.linear
 import com.v.base.utils.ext.loadData
 import ${packageName}.adapter.${className}ActivityAdapter
+import ${packageName}.model.${className}ViewModel
 import ${applicationPackage}.databinding.Activity${className}Binding
-import ${applicationPackage}.model.${className}ViewModel
-import ${escapeKotlinIdentifier(packageName)}.R
+import ${applicationPackage}.R
 
 
 class ${className}Activity : BaseActivity<Activity${className}Binding,${className}ViewModel>(), View.OnClickListener {
@@ -88,6 +86,7 @@ import com.v.base.BaseActivity
 import android.view.View
 import com.v.base.BlankViewModel
 import ${applicationPackage}.databinding.Activity${className}Binding
+import ${applicationPackage}.R
 
 class ${className}Activity : BaseActivity<Activity${className}Binding,BlankViewModel>(), View.OnClickListener {
    

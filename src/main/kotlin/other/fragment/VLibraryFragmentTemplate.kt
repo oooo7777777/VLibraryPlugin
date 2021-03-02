@@ -77,7 +77,7 @@ val VLibraryFragmentTemplate
             VLibraryFragmentRecipe(
                     data as ModuleTemplateData,
                     className.value,
-                    "${activityToLayout(className.value.toCamelCase())}",
+                    "${fragmentToLayout(className.value.toCamelCase())}",
                     packageName.value,
                     isModeView.value,
                     author.value,

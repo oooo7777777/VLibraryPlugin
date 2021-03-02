@@ -37,6 +37,7 @@ fun RecipeExecutor.VLibraryDialogRecipe(
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
 
+
     val dialog = VLibraryDialogKt(escapeKotlinIdentifier(packageName), className, layoutName, packageName, headerString)
 
 

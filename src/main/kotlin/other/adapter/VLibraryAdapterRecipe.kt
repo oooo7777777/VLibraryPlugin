@@ -27,7 +27,6 @@ fun RecipeExecutor.VLibraryAdapterRecipe(
 
     var date = Date(System.currentTimeMillis())
     var format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    val applicationPackage = escapeKotlinIdentifier(packageName)
 
     val headerString = "" +
             "/**\n" +
@@ -39,7 +38,12 @@ fun RecipeExecutor.VLibraryAdapterRecipe(
 
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
+    var applicationPackage = projectData.applicationPackage
 
+    if (applicationPackage.isNullOrEmpty())
+    {
+        applicationPackage = escapeKotlinIdentifier(packageName)
+    }
     val layoutName ="${classToLayout(className.toCamelCase())}"
 
     // 保存adapter

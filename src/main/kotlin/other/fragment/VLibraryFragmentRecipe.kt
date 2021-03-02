@@ -42,7 +42,12 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
 
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
-    val applicationPackage = escapeKotlinIdentifier(packageName)
+    var applicationPackage = projectData.applicationPackage
+
+    if (applicationPackage.isNullOrEmpty())
+    {
+        applicationPackage = escapeKotlinIdentifier(packageName)
+    }
 
     val activity = VLibraryFragmentKt(applicationPackage, className, layoutName, packageName, isModeView, headerString)
 

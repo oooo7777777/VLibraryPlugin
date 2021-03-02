@@ -1,6 +1,5 @@
 package other.activity
 
-import com.android.tools.idea.wizard.template.Constraint
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
@@ -17,7 +16,6 @@ import java.util.*
  * desc    :
  * time    : 2021/2/19 11:10
  */
-
 
 
 fun RecipeExecutor.VLibraryActivityRecipe(
@@ -45,7 +43,12 @@ fun RecipeExecutor.VLibraryActivityRecipe(
 
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
-    val applicationPackage = escapeKotlinIdentifier(packageName)
+    var applicationPackage = projectData.applicationPackage
+
+    if (applicationPackage.isNullOrEmpty())
+    {
+        applicationPackage = escapeKotlinIdentifier(packageName)
+    }
 
 
     val activity = VLibraryAcitivityKt(applicationPackage, className, layoutName, packageName, isModeView, headerString)
@@ -55,7 +58,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     save(activity, srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryActivityXml(applicationPackage, packageName, className, isModeView,layoutName), resOut.resolve("layout/${layoutName}.xml"))
+    save(VLibraryActivityXml(applicationPackage, packageName, className, isModeView, layoutName), resOut.resolve("layout/${layoutName}.xml"))
 
     // 保存titleString
     mergeXml(VLibraryTitleString(layoutName, title), resOut.resolve("values/strings.xml"))
@@ -68,9 +71,9 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         // 保存bean
         save(VLibraryBean(packageName, className, headerString), srcOut.resolve("bean/${className}Bean.${ktOrJavaExt}"))
         // 保存adapter
-        save(VLibraryAdapter(applicationPackage, packageName, className,"Activity", "item_${layoutName}", headerString), srcOut.resolve("adapter/${className}ActivityAdapter.${ktOrJavaExt}"))
+        save(VLibraryAdapter(applicationPackage, packageName, className, "Activity", "item_${layoutName}", headerString), srcOut.resolve("adapter/${className}ActivityAdapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
-        save(VLibraryAdapterItemXml(applicationPackage, packageName, className,"Activity"), resOut.resolve("layout/item_${layoutName}.xml"))
+        save(VLibraryAdapterItemXml(applicationPackage, packageName, className, "Activity"), resOut.resolve("layout/item_${layoutName}.xml"))
 
     }
 
