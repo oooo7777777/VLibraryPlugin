@@ -31,7 +31,7 @@ fun RecipeExecutor.VLibraryDialogRecipe(
 
     val headerString = "" +
             "/**\n" +
-            " * @Author : ${author}\n" +
+            " * author : ${author}\n" +
             " * desc    : ${classDesc} \n" +
             " * time    : ${format.format(date)} \n" +
             " */"

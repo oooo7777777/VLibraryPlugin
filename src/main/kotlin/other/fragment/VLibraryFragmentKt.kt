@@ -19,7 +19,7 @@ fun VLibraryFragmentKt(
     """
 package ${packageName}
 
-${desc}
+
 
 import com.v.base.BaseFragment
 import android.view.View
@@ -30,7 +30,7 @@ import ${applicationPackage}.adapter.${className}FragmentAdapter
 import ${applicationPackage}.model.${className}ViewModel
 import ${applicationPackage}.databinding.${resourcePrefixClass}Fragment${className}Binding
 
-
+${desc}
 class ${className}Fragment : BaseFragment<${resourcePrefixClass}Fragment${className}Binding,${className}ViewModel>(), View.OnClickListener {
    
   private var page =1
@@ -76,13 +76,14 @@ class ${className}Fragment : BaseFragment<${resourcePrefixClass}Fragment${classN
     """
 package ${packageName}
 
-${desc}
+
 
 import com.v.base.BaseFragment
 import android.view.View
 import com.v.base.BlankViewModel
 import ${applicationPackage}.databinding.${resourcePrefixClass}Fragment${className}Binding
 
+${desc}
 class ${className}Fragment : BaseFragment<${resourcePrefixClass}Fragment${className}Binding,BlankViewModel>(), View.OnClickListener {
    
  

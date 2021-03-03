@@ -16,13 +16,14 @@ fun VLibraryDialogKt(
 ) = """
 package ${applicationPackage}.dialog
 
-${desc}
+
 
 import android.view.View
 import com.v.base.BlankViewModel
 import com.v.base.dialog.BaseDialogFragment
 import ${applicationPackage}.databinding.${resourcePrefixClass}Dialog${className}Binding
 
+${desc}
 class ${className}Dialog : BaseDialogFragment<${resourcePrefixClass}Dialog${className}Binding,BlankViewModel>(), View.OnClickListener {
    
    private var listener: ${className}Listener? = null

@@ -12,7 +12,7 @@ fun VLibraryViewModel(
 )="""
 package ${applicationPackage}.model
 
-${desc}
+
  
 import androidx.lifecycle.MutableLiveData
 import com.v.base.BaseViewModel
@@ -20,6 +20,7 @@ import com.v.base.utils.ext.toList
 import com.v.base.net.RetrofitManager
 import ${applicationPackage}.bean.${className}Bean
 
+${desc}
 class ${className}ViewModel : BaseViewModel() {
 
     var listBean = MutableLiveData<List<${className}Bean>>()

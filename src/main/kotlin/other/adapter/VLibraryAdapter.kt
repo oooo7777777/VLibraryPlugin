@@ -17,7 +17,7 @@ fun VLibraryAdapter(
 )="""
 package ${applicationPackage}.adapter
 
-${desc}
+
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
@@ -25,8 +25,9 @@ import ${applicationPackage}.R
 import ${applicationPackage}.bean.${className}Bean
 import ${applicationPackage}.databinding.${resourcePrefixClass}Item${classType}${className}Binding
 
+${desc}
 class ${className}${classType}Adapter :
-    BaseQuickAdapter<${className}Bean, BaseDataBindingHolder<${resourcePrefixClass}Item${classType}${className}Binding>>(R.layout.${resourcePrefixXml}${layoutName}) {
+    BaseQuickAdapter<${className}Bean, BaseDataBindingHolder<${resourcePrefixClass}Item${classType}${className}Binding>>(R.layout.${layoutName}) {
 
     override fun convert(holder: BaseDataBindingHolder<${resourcePrefixClass}Item${classType}${className}Binding>, item: ${className}Bean) {
         holder.dataBinding?.run {

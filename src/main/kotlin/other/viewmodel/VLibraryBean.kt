@@ -14,7 +14,6 @@ fun VLibraryBean(
 package ${applicationPackage}.bean
 
 ${desc}
-
 data class ${className}Bean(
     val content: String
 )

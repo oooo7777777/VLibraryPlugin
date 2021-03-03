@@ -20,7 +20,7 @@ fun VLibraryAcitivityKt(
     """
 package ${packageName}
 
-${desc}
+
 
 import com.v.base.BaseActivity
 import android.view.View
@@ -32,7 +32,7 @@ import ${applicationPackage}.model.${className}ViewModel
 import ${applicationPackage}.databinding.${resourcePrefixClass}Activity${className}Binding
 import ${applicationPackage}.R
 
-
+${desc}
 class ${className}Activity : BaseActivity<${resourcePrefixClass}Activity${className}Binding,${className}ViewModel>(), View.OnClickListener {
    
   private var page =1
@@ -82,7 +82,7 @@ class ${className}Activity : BaseActivity<${resourcePrefixClass}Activity${classN
     """
 package ${packageName}
 
-${desc}
+
 
 import com.v.base.BaseActivity
 import android.view.View
@@ -90,6 +90,7 @@ import com.v.base.BlankViewModel
 import ${applicationPackage}.databinding.${resourcePrefixClass}Activity${className}Binding
 import ${applicationPackage}.R
 
+${desc}
 class ${className}Activity : BaseActivity<${resourcePrefixClass}Activity${className}Binding,BlankViewModel>(), View.OnClickListener {
    
   override fun toolBarTitle(title: String, titleColor: Int) {
