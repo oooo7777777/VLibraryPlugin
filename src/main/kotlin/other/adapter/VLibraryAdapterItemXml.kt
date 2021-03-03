@@ -27,7 +27,7 @@ fun VLibraryAdapterItemXml(
     
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:text="@{bean.content}"

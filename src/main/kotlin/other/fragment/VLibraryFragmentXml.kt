@@ -10,6 +10,7 @@ fun VLibraryFragmentXml(
         packageName: String,
         className: String,
         isModeView: Boolean,
+        resourcePrefixXml: String,
         layoutName:String
 ) = if (isModeView)
         {
@@ -42,7 +43,7 @@ fun VLibraryFragmentXml(
                 android:layout_height="match_parent"
                 android:overScrollMode="never"
                 android:scrollbars="none" 
-                tools:listitem="@layout/item_${layoutName}" />
+                tools:listitem="@layout/${resourcePrefixXml}item_${layoutName}" />
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 

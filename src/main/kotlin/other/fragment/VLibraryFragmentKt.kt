@@ -12,6 +12,7 @@ fun VLibraryFragmentKt(
         layoutName: String,
         packageName: String,
         isModeView: Boolean,
+        resourcePrefixClass: String,
         desc:String
 ) = if (isModeView)
 {
@@ -27,12 +28,12 @@ import com.v.base.utils.ext.linear
 import com.v.base.utils.ext.loadData
 import ${applicationPackage}.adapter.${className}FragmentAdapter
 import ${applicationPackage}.model.${className}ViewModel
-import ${applicationPackage}.databinding.Fragment${className}Binding
+import ${applicationPackage}.databinding.${resourcePrefixClass}Fragment${className}Binding
 
 
-class ${className}Fragment : BaseFragment<Fragment${className}Binding,${className}ViewModel>(), View.OnClickListener {
+class ${className}Fragment : BaseFragment<${resourcePrefixClass}Fragment${className}Binding,${className}ViewModel>(), View.OnClickListener {
    
-  var page =1
+  private var page =1
   
   private val mAdapter by lazy {
         mViewBinding.recyclerView.linear(${className}FragmentAdapter()) as ${className}FragmentAdapter
@@ -80,9 +81,9 @@ ${desc}
 import com.v.base.BaseFragment
 import android.view.View
 import com.v.base.BlankViewModel
-import ${applicationPackage}.databinding.Fragment${className}Binding
+import ${applicationPackage}.databinding.${resourcePrefixClass}Fragment${className}Binding
 
-class ${className}Fragment : BaseFragment<Fragment${className}Binding,BlankViewModel>(), View.OnClickListener {
+class ${className}Fragment : BaseFragment<${resourcePrefixClass}Fragment${className}Binding,BlankViewModel>(), View.OnClickListener {
    
  
     override fun initData() {

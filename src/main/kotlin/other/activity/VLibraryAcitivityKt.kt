@@ -12,6 +12,8 @@ fun VLibraryAcitivityKt(
         layoutName: String,
         packageName: String,
         isModeView: Boolean,
+        resourcePrefixClass: String,
+        resourcePrefixXml: String,
         desc:String
 ) = if (isModeView)
 {
@@ -27,20 +29,20 @@ import com.v.base.utils.ext.linear
 import com.v.base.utils.ext.loadData
 import ${applicationPackage}.adapter.${className}ActivityAdapter
 import ${applicationPackage}.model.${className}ViewModel
-import ${applicationPackage}.databinding.Activity${className}Binding
+import ${applicationPackage}.databinding.${resourcePrefixClass}Activity${className}Binding
 import ${applicationPackage}.R
 
 
-class ${className}Activity : BaseActivity<Activity${className}Binding,${className}ViewModel>(), View.OnClickListener {
+class ${className}Activity : BaseActivity<${resourcePrefixClass}Activity${className}Binding,${className}ViewModel>(), View.OnClickListener {
    
-  var page =1
+  private var page =1
   
   private val mAdapter by lazy {
         mViewBinding.recyclerView.linear(${className}ActivityAdapter()) as ${className}ActivityAdapter
     }
     
   override fun toolBarTitle(title: String, titleColor: Int) {
-        super.toolBarTitle(this.getString(R.string.string_${layoutName}_title), titleColor)
+        super.toolBarTitle(this.getString(R.string.${resourcePrefixXml}string_${layoutName}_title), titleColor)
     }
     
     override fun initData() {
@@ -85,13 +87,13 @@ ${desc}
 import com.v.base.BaseActivity
 import android.view.View
 import com.v.base.BlankViewModel
-import ${applicationPackage}.databinding.Activity${className}Binding
+import ${applicationPackage}.databinding.${resourcePrefixClass}Activity${className}Binding
 import ${applicationPackage}.R
 
-class ${className}Activity : BaseActivity<Activity${className}Binding,BlankViewModel>(), View.OnClickListener {
+class ${className}Activity : BaseActivity<${resourcePrefixClass}Activity${className}Binding,BlankViewModel>(), View.OnClickListener {
    
   override fun toolBarTitle(title: String, titleColor: Int) {
-      super.toolBarTitle(this.getString(R.string.string_${layoutName}_title), titleColor)
+      super.toolBarTitle(this.getString(R.string.${resourcePrefixXml}string_${layoutName}_title), titleColor)
     }
     
     override fun initData() {

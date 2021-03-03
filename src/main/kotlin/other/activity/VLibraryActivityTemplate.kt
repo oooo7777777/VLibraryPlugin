@@ -46,6 +46,12 @@ val VLibraryActivityTemplate
             help = "是否生成ViewMode代码"
         }
 
+        val isResourcePrefix = booleanParameter {
+            name = "Is ResourcePrefix"
+            default = true
+            help = "是否约束资源文件命名"
+        }
+
         val title = stringParameter {
             name = "Activity Title"
             default = layoutName.value
@@ -75,6 +81,7 @@ val VLibraryActivityTemplate
         widgets(
                 TextFieldWidget(className),
                 CheckBoxWidget(isModeView),
+                CheckBoxWidget(isResourcePrefix),
                 PackageNameWidget(packageName),
                 TextFieldWidget(title),
                 TextFieldWidget(classDesc),
@@ -90,6 +97,7 @@ val VLibraryActivityTemplate
                     "${activityToLayout(className.value.toCamelCase())}",
                     packageName.value,
                     isModeView.value,
+                    isResourcePrefix.value,
                     title.value,
                     author.value,
                     classDesc.value)

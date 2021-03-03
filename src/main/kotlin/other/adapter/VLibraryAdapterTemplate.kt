@@ -31,6 +31,13 @@ val VLibraryAdapterTemplate
             constraints = listOf(Constraint.NONEMPTY)
         }
 
+        val isResourcePrefix = booleanParameter {
+            name = "Is ResourcePrefix"
+            default = true
+            help = "是否约束资源文件命名"
+        }
+
+
         val author = stringParameter {
             name = "Author"
             default = " "
@@ -50,6 +57,7 @@ val VLibraryAdapterTemplate
 
         widgets(
                 TextFieldWidget(className),
+                CheckBoxWidget(isResourcePrefix),
                 PackageNameWidget(packageName),
                 TextFieldWidget(classDesc),
                 TextFieldWidget(author)
@@ -61,6 +69,7 @@ val VLibraryAdapterTemplate
             VLibraryAdapterRecipe(
                     data as ModuleTemplateData,
                     className.value,
+                    isResourcePrefix.value,
                     packageName.value,
                     author.value,
                     classDesc.value)

@@ -11,6 +11,7 @@ fun VLibraryDialogKt(
         className: String,
         layoutName: String,
         packageName: String,
+        resourcePrefixClass: String,
         desc: String
 ) = """
 package ${applicationPackage}.dialog
@@ -20,9 +21,9 @@ ${desc}
 import android.view.View
 import com.v.base.BlankViewModel
 import com.v.base.dialog.BaseDialogFragment
-import ${applicationPackage}.databinding.Dialog${className}Binding
+import ${applicationPackage}.databinding.${resourcePrefixClass}Dialog${className}Binding
 
-class ${className}Dialog : BaseDialogFragment<Dialog${className}Binding,BlankViewModel>(), View.OnClickListener {
+class ${className}Dialog : BaseDialogFragment<${resourcePrefixClass}Dialog${className}Binding,BlankViewModel>(), View.OnClickListener {
    
    private var listener: ${className}Listener? = null
 

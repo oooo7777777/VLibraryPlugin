@@ -13,6 +13,7 @@ import other.activity.VLibraryFragmentXml
 import other.adapter.VLibraryAdapter
 import other.adapter.VLibraryAdapterItemXml
 import other.utlis.getApplicationPackageFile
+import other.utlis.getResourcePrefix
 import other.viewmodel.VLibraryBean
 import other.viewmodel.VLibraryViewModel
 import java.text.SimpleDateFormat
@@ -25,6 +26,7 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
         layoutName: String,
         packageName: String,
         isModeView: Boolean,
+        isResourcePrefix: Boolean,
         author: String,
         classDesc: String
 )
@@ -50,16 +52,29 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
         applicationPackage = escapeKotlinIdentifier(packageName)
     }
 
-    //获取包名根目录
-    val  pkFile =  getApplicationPackageFile(srcOut,applicationPackage)
+    //是否约束资源文件命名
+    var resourcePrefixClass = ""
+    if (isResourcePrefix)
+    {
+        resourcePrefixClass = getResourcePrefix(applicationPackage).toUpperCase()
+    }
 
-    val activity = VLibraryFragmentKt(applicationPackage, className, layoutName, packageName, isModeView, headerString)
+    var resourcePrefixXml = ""
+    if (isResourcePrefix)
+    {
+        resourcePrefixXml = getResourcePrefix(applicationPackage).toLowerCase() + "_"
+    }
+
+    //获取包名根目录
+    val pkFile = getApplicationPackageFile(srcOut, applicationPackage)
+
+    val activity = VLibraryFragmentKt(applicationPackage, className, layoutName, packageName, isModeView, resourcePrefixClass, headerString)
 
     // 保存Fragment
     save(activity, srcOut.resolve("${className}Fragment.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryFragmentXml(applicationPackage, packageName, className, isModeView, layoutName), resOut.resolve("layout/${layoutName}.xml"))
+    save(VLibraryFragmentXml(applicationPackage, packageName, className, isModeView, resourcePrefixXml, layoutName), resOut.resolve("layout/${resourcePrefixXml}${layoutName}.xml"))
 
 
     if (isModeView)
@@ -69,9 +84,9 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
         // 保存bean
         save(VLibraryBean(applicationPackage, className, headerString), pkFile.resolve("bean/${className}Bean.${ktOrJavaExt}"))
         // 保存adapter
-        save(VLibraryAdapter(applicationPackage, className, "Fragment", "item_${layoutName}", headerString), pkFile.resolve("adapter/${className}FragmentAdapter.${ktOrJavaExt}"))
+        save(VLibraryAdapter(applicationPackage, className, "Fragment", "${resourcePrefixXml}item_${layoutName}", resourcePrefixClass, resourcePrefixXml, headerString), pkFile.resolve("adapter/${className}FragmentAdapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
-        save(VLibraryAdapterItemXml(applicationPackage, packageName, className,"Fragment"), resOut.resolve("layout/item_${layoutName}.xml"))
+        save(VLibraryAdapterItemXml(applicationPackage, packageName, className, "Fragment"), resOut.resolve("layout/${resourcePrefixXml}item_${layoutName}.xml"))
 
     }
 

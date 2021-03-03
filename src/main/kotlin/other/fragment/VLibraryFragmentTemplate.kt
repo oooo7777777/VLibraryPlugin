@@ -46,6 +46,12 @@ val VLibraryFragmentTemplate
             help = "是否生成ViewMode代码"
         }
 
+        val isResourcePrefix = booleanParameter {
+            name = "Is ResourcePrefix"
+            default = true
+            help = "是否约束资源文件命名"
+        }
+
 
         val author = stringParameter {
             name = "Author"
@@ -66,6 +72,7 @@ val VLibraryFragmentTemplate
         widgets(
                 TextFieldWidget(className),
                 CheckBoxWidget(isModeView),
+                CheckBoxWidget(isResourcePrefix),
                 PackageNameWidget(packageName),
                 TextFieldWidget(classDesc),
                 TextFieldWidget(author)
@@ -80,6 +87,7 @@ val VLibraryFragmentTemplate
                     "${fragmentToLayout(className.value.toCamelCase())}",
                     packageName.value,
                     isModeView.value,
+                    isResourcePrefix.value,
                     author.value,
                     classDesc.value)
         }

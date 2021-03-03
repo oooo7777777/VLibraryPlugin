@@ -7,6 +7,7 @@ import com.android.tools.idea.wizard.template.impl.activities.common.generateMan
 import other.adapter.VLibraryAdapter
 import other.adapter.VLibraryAdapterItemXml
 import other.utlis.getApplicationPackageFile
+import other.utlis.getResourcePrefix
 import other.viewmodel.VLibraryBean
 import other.viewmodel.VLibraryViewModel
 import java.text.SimpleDateFormat
@@ -25,6 +26,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         layoutName: String,
         packageName: String,
         isModeView: Boolean,
+        isResourcePrefix: Boolean,
         title: String,
         author: String,
         classDesc: String
@@ -52,18 +54,31 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         applicationPackage = escapeKotlinIdentifier(packageName)
     }
 
+    //是否约束资源文件命名
+    var resourcePrefixClass = ""
+    if (isResourcePrefix)
+    {
+        resourcePrefixClass = getResourcePrefix(applicationPackage).toUpperCase()
+    }
+
+    var resourcePrefixXml = ""
+    if (isResourcePrefix)
+    {
+        resourcePrefixXml = getResourcePrefix(applicationPackage).toLowerCase()+"_"
+    }
+
     //获取包名根目录
     val  pkFile =  getApplicationPackageFile(srcOut,applicationPackage)
 
 
     // 保存Activity
-    save(VLibraryAcitivityKt(applicationPackage, className, layoutName, packageName, isModeView, headerString), srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
+    save(VLibraryAcitivityKt(applicationPackage, className, layoutName, packageName, isModeView, resourcePrefixClass,resourcePrefixXml,headerString), srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryActivityXml(applicationPackage, packageName, className, isModeView, layoutName), resOut.resolve("layout/${layoutName}.xml"))
+    save(VLibraryActivityXml(applicationPackage, packageName, className, isModeView,resourcePrefixXml, layoutName), resOut.resolve("layout/${resourcePrefixXml}${layoutName}.xml"))
 
     // 保存titleString
-    mergeXml(VLibraryTitleString(layoutName, title), resOut.resolve("values/strings.xml"))
+    mergeXml(VLibraryTitleString(layoutName, title,resourcePrefixXml), resOut.resolve("values/strings.xml"))
 
 
     if (isModeView)
@@ -73,9 +88,9 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         // 保存bean
         save(VLibraryBean(applicationPackage, className, headerString), pkFile.resolve("bean/${className}Bean.${ktOrJavaExt}"))
         // 保存adapter
-        save(VLibraryAdapter(applicationPackage, className, "Activity", "item_${layoutName}", headerString), pkFile.resolve("adapter/${className}ActivityAdapter.${ktOrJavaExt}"))
+        save(VLibraryAdapter(applicationPackage, className, "Activity", "${resourcePrefixXml}item_${layoutName}",resourcePrefixClass,resourcePrefixXml,headerString), pkFile.resolve("adapter/${className}ActivityAdapter.${ktOrJavaExt}"))
         // 保存adapterItemXml
-        save(VLibraryAdapterItemXml(applicationPackage, packageName, className, "Activity"), resOut.resolve("layout/item_${layoutName}.xml"))
+        save(VLibraryAdapterItemXml(applicationPackage, packageName, className, "Activity"), resOut.resolve("layout/${resourcePrefixXml}item_${layoutName}.xml"))
 
     }
 

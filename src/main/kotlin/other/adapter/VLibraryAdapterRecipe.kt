@@ -12,6 +12,7 @@ import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
 import other.utlis.getApplicationPackageFile
+import other.utlis.getResourcePrefix
 import other.viewmodel.VLibraryBean
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,6 +21,7 @@ import java.util.*
 fun RecipeExecutor.VLibraryAdapterRecipe(
         moduleData: ModuleTemplateData,
         className: String,
+        isResourcePrefix: Boolean,
         packageName: String,
         author: String,
         classDesc: String
@@ -47,13 +49,27 @@ fun RecipeExecutor.VLibraryAdapterRecipe(
     }
     val layoutName ="${classToLayout(className.toCamelCase())}"
 
+
+    //是否约束资源文件命名
+    var resourcePrefixClass = ""
+    if (isResourcePrefix)
+    {
+        resourcePrefixClass = getResourcePrefix(applicationPackage).toUpperCase()
+    }
+
+    var resourcePrefixXml = ""
+    if (isResourcePrefix)
+    {
+        resourcePrefixXml = getResourcePrefix(applicationPackage).toLowerCase()+"_"
+    }
+
     //获取包名根目录
     val  pkFile =  getApplicationPackageFile(srcOut,applicationPackage)
 
     // 保存adapter
-    save(VLibraryAdapter(applicationPackage, className,"", layoutName, headerString), pkFile.resolve("adapter/${className}Adapter.${ktOrJavaExt}"))
+    save(VLibraryAdapter(applicationPackage, className,"", layoutName,resourcePrefixClass, resourcePrefixXml,headerString), pkFile.resolve("adapter/${className}Adapter.${ktOrJavaExt}"))
     // 保存adapterItemXml
-    save(VLibraryAdapterItemXml(applicationPackage, packageName, className,""), resOut.resolve("layout/${layoutName}.xml"))
+    save(VLibraryAdapterItemXml(applicationPackage, packageName, className,""), resOut.resolve("layout/${resourcePrefixXml}${layoutName}.xml"))
     // 保存bean
     save(VLibraryBean(applicationPackage, className, headerString), pkFile.resolve("bean/${className}Bean.${ktOrJavaExt}"))
     

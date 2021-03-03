@@ -32,7 +32,11 @@ val VLibraryDialogTemplate
             help = "只输入名字，不要包含Dialog"
             constraints = listOf(Constraint.NONEMPTY)
         }
-
+        val isResourcePrefix = booleanParameter {
+            name = "Is ResourcePrefix"
+            default = true
+            help = "是否约束资源文件命名"
+        }
         val layoutName = stringParameter {
             name = "Layout Name"
             default = "dialog_main"
@@ -60,6 +64,7 @@ val VLibraryDialogTemplate
 
         widgets(
                 TextFieldWidget(className),
+                CheckBoxWidget(isResourcePrefix),
                 PackageNameWidget(packageName),
                 TextFieldWidget(classDesc),
                 TextFieldWidget(author)
@@ -71,6 +76,7 @@ val VLibraryDialogTemplate
             VLibraryDialogRecipe(
                     data as ModuleTemplateData,
                     className.value,
+                    isResourcePrefix.value,
                     "${dialogToLayout(className.value.toCamelCase())}",
                     packageName.value,
                     author.value,
