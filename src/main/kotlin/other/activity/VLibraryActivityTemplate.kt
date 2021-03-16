@@ -49,7 +49,7 @@ val VLibraryActivityTemplate
         val isResourcePrefix = booleanParameter {
             name = "Is ResourcePrefix"
             default = true
-            help = "是否约束资源文件命名"
+            help = "是否约束资源文件命名(组件化开发的时候勾选)"
         }
 
         val title = stringParameter {
