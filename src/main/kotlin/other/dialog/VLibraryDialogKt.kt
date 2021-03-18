@@ -33,10 +33,6 @@ class ${className}Dialog : BaseDialogFragment<${resourcePrefixClass}Dialog${clas
         return this
     }
 
-    override fun useDirection(): Int {
-        return DIRECTION_CENTRE
-    }
-
     override fun initData() {
         mViewBinding.v = this
         
