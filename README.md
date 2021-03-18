@@ -2,6 +2,13 @@
 
 ### 开发效率提升80%
 
+#### 1.安装方法
+- 运行 Run Plugin
+- 打开\intellij-platform-plugin-template-main\build\libs\找到里面的VLibraryPlugin-1.5.0.jar
+- IntelliJ IDEA File-&gt; Settings.. -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin-1.5.0.jar
+- 重启 IntelliJ IDEA .
+
+
 ### 功能
 - 1.可一键约束资源命名(在组件化开发模式使用)
 - 2.可一键约束是否生成ModelView代码
