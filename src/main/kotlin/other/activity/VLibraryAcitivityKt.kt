@@ -25,8 +25,8 @@ package ${packageName}
 import com.v.base.BaseActivity
 import android.view.View
 import androidx.lifecycle.Observer
-import com.v.base.utils.ext.linear
-import com.v.base.utils.ext.loadData
+import com.v.base.utils.linear
+import com.v.base.utils.loadData
 import ${applicationPackage}.adapter.${className}ActivityAdapter
 import ${applicationPackage}.model.${className}ViewModel
 import ${applicationPackage}.databinding.${resourcePrefixClass}Activity${className}Binding

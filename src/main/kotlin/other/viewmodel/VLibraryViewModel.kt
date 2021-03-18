@@ -16,8 +16,8 @@ package ${applicationPackage}.model
  
 import androidx.lifecycle.MutableLiveData
 import com.v.base.BaseViewModel
-import com.v.base.utils.ext.toList
-import com.v.base.net.RetrofitManager
+import com.v.base.utils.toList
+import com.v.common.net.RetrofitManager
 import ${applicationPackage}.bean.${className}Bean
 
 ${desc}
@@ -32,7 +32,7 @@ class ${className}ViewModel : BaseViewModel() {
         )
 
         request({
-            RetrofitManager.instance.get("data/category/Girl/type/Girl/page/page/count/20",map)
+            RetrofitManager.instance.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/"+page+"/count/20")
         }, success = {
                listBean.value = it.toString().toList(${className}Bean::class.java)
         })

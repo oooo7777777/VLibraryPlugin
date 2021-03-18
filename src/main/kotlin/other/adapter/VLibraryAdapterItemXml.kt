@@ -27,15 +27,15 @@ fun VLibraryAdapterItemXml(
     
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:text="@{bean.content}"
+        <ImageView
+            android:id="@+id/ivIcon"
             android:layout_width="match_parent"
-            android:padding="10dp"
-            android:gravity="center"
-            android:background="@color/base_yellow"
-            android:layout_height="wrap_content"/>
+            android:scaleType="centerCrop"
+            app:imgUrl="@{bean.url}"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
    
