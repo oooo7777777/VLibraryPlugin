@@ -6,7 +6,7 @@
 
 
 #### 1.安装方法
-- ([前往下载](https://plugins.jetbrains.com/plugin/16350-vlibrary))
+- ([前往下载](https://plugins.jetbrains.com/plugin/16351-vlibrary))
 - IntelliJ IDEA File-&gt; Settings.. -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin-1.5.0.jar
 - 重启 IntelliJ IDEA .
 

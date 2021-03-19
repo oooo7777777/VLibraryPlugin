@@ -4,8 +4,8 @@
     <vendor>V</vendor>
 
 
-    <description>基于VLibrary编写的代码模板插件</description>
-    <change-notes>修改Dialog模板</change-notes>
+    <description>Code template plugin based on VLibrary</description>
+    <change-notes>Update dialog template </change-notes>
     <version>1.5.0</version>
 
 
