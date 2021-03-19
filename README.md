@@ -2,7 +2,16 @@
 
 ### 开发效率提升80%
 
+
+
+
 #### 1.安装方法
+- ([前往下载](https://plugins.jetbrains.com/plugin/16350-vlibrary))
+- IntelliJ IDEA File-&gt; Settings.. -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin-1.5.0.jar
+- 重启 IntelliJ IDEA .
+
+#### 2.安装方法
+- 源代码下载下来,编译
 - 运行 Run Plugin
 - 打开\intellij-platform-plugin-template-main\build\libs\找到里面的VLibraryPlugin-1.5.0.jar
 - IntelliJ IDEA File-&gt; Settings.. -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin-1.5.0.jar
