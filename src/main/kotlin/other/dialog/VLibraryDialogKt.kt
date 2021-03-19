@@ -28,7 +28,7 @@ class ${className}Dialog : BaseDialogFragment<${resourcePrefixClass}Dialog${clas
    
    private var listener: ${className}Listener? = null
 
-    fun setDemoDialogListener(listener: ${className}Listener): ${className}Dialog {
+    fun set${className}Listener(listener: ${className}Listener): ${className}Dialog {
         this.listener = listener
         return this
     }
@@ -38,7 +38,7 @@ class ${className}Dialog : BaseDialogFragment<${resourcePrefixClass}Dialog${clas
         
         
 //            ${className}Dialog()
-//                .set${className}DialogListener(object :${className}Dialog.${className}DialogListener
+//                .set${className}Listener(object :${className}Dialog.${className}Listener
 //                {
 //                    override fun onLeftClick() {
 //                    }
