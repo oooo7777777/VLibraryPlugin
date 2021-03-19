@@ -4,6 +4,11 @@
     <vendor>V</vendor>
 
 
+    <description>基于VLibrary编写的代码模板插件</description>
+    <change-notes>修改Dialog模板</change-notes>
+    <version>1.5.0</version>
+
+
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
