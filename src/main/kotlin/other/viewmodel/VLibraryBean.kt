@@ -15,6 +15,14 @@ package ${applicationPackage}.bean
 
 ${desc}
 data class ${className}Bean(
+    val `data`: List<${className}Data>,
+    val page: Int,
+    val page_count: Int,
+    val status: Int,
+    val total_counts: Int
+)
+
+data class ${className}Data(
     val _id: String,
     val author: String,
     val category: String,

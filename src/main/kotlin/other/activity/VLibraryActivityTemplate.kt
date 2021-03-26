@@ -82,10 +82,10 @@ val VLibraryActivityTemplate
                 TextFieldWidget(className),
                 CheckBoxWidget(isModeView),
                 CheckBoxWidget(isResourcePrefix),
-                PackageNameWidget(packageName),
                 TextFieldWidget(title),
                 TextFieldWidget(classDesc),
-                TextFieldWidget(author)
+                TextFieldWidget(author),
+                PackageNameWidget(packageName)
         )
 
         thumb { File("template_login_activity.png") }

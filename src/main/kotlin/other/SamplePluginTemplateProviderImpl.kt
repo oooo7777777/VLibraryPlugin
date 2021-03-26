@@ -6,6 +6,7 @@ import other.activity.VLibraryActivityTemplate
 import other.adapter.VLibraryAdapterTemplate
 import other.dialog.VLibraryDialogTemplate
 import other.fragment.VLibraryFragmentTemplate
+import other.net.VLibraryNetTemplate
 import other.viewmodel.VLibraryViewModelTemplate
 
 /**
@@ -21,6 +22,7 @@ class SamplePluginTemplateProviderImpl : WizardTemplateProvider()
             VLibraryFragmentTemplate,
             VLibraryDialogTemplate,
             VLibraryViewModelTemplate,
-            VLibraryAdapterTemplate
+            VLibraryAdapterTemplate,
+            VLibraryNetTemplate
     )
 }

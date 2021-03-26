@@ -1,4 +1,4 @@
-package other.adapter
+package other.net
 
 /**
  * @Author : ww
@@ -10,11 +10,11 @@ import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
 import java.io.File
 
 
-val VLibraryAdapterTemplate
+val VLibraryNetTemplate
     get() = template {
         revision = 1
-        name = "VLibrary Adapter"
-        description = "适用于VLibrary框架的Adapter"
+        name = "VLibrary Net"
+        description = "适用于VLibrary框架的自定义网络请求"
         minApi = MIN_API
         minBuildApi = MIN_API
 
@@ -24,18 +24,6 @@ val VLibraryAdapterTemplate
 
         val packageName = defaultPackageNameParameter
 
-        val className = stringParameter {
-            name = "Adapter Name"
-            default = "Main"
-            help = "只输入名字，不要包含Adapter"
-            constraints = listOf(Constraint.NONEMPTY)
-        }
-
-        val isResourcePrefix = booleanParameter {
-            name = "Is ResourcePrefix"
-            default = true
-            help = "是否约束资源文件命名(组件化开发的时候勾选)"
-        }
 
 
         val author = stringParameter {
@@ -43,12 +31,11 @@ val VLibraryAdapterTemplate
             default = " "
             help = "开发者"
             constraints = listOf(Constraint.NONEMPTY)
-
         }
 
         val classDesc = stringParameter {
             name = "Description"
-            default = " "
+            default = "自定义得网络请求"
             help = "描述一下方法的作用"
             constraints = listOf(Constraint.NONEMPTY)
 
@@ -56,8 +43,6 @@ val VLibraryAdapterTemplate
 
 
         widgets(
-                TextFieldWidget(className),
-                CheckBoxWidget(isResourcePrefix),
                 TextFieldWidget(classDesc),
                 TextFieldWidget(author),
                 PackageNameWidget(packageName)
@@ -66,10 +51,8 @@ val VLibraryAdapterTemplate
         thumb { File("template_login_activity.png") }
 
         recipe = { data: TemplateData ->
-            VLibraryAdapterRecipe(
+            VLibraryNetRecipe(
                     data as ModuleTemplateData,
-                    className.value,
-                    isResourcePrefix.value,
                     packageName.value,
                     author.value,
                     classDesc.value)
@@ -84,5 +67,4 @@ val defaultPackageNameParameter
         constraints = listOf(Constraint.PACKAGE)
         suggest = { packageName }
     }
-
 

@@ -25,6 +25,7 @@ package ${packageName}
 import com.v.base.BaseActivity
 import android.view.View
 import androidx.lifecycle.Observer
+import com.v.base.utils.divider
 import com.v.base.utils.linear
 import com.v.base.utils.loadData
 import ${applicationPackage}.adapter.${className}ActivityAdapter
@@ -38,7 +39,12 @@ class ${className}Activity : BaseActivity<${resourcePrefixClass}Activity${classN
   private var page =1
   
   private val mAdapter by lazy {
-        mViewBinding.recyclerView.linear(${className}ActivityAdapter()) as ${className}ActivityAdapter
+  
+        mViewBinding.recyclerView.divider{
+                setColor(Color.parseColor("#ff0000"))
+                setDivider(10)
+            }
+            .linear(${className}ActivityAdapter()) as ${className}ActivityAdapter
     }
     
   override fun toolBarTitle(title: String, titleColor: Int) {
@@ -48,24 +54,27 @@ class ${className}Activity : BaseActivity<${resourcePrefixClass}Activity${classN
     override fun initData() {
         mViewBinding.v = this
         mViewBinding.refreshLayout.autoRefresh()
-        mViewModel.getList(page)
+        mViewModel.getData(page)
     }
 
     override fun createObserver() {
-        mViewModel.listBean.observe(this, Observer {
-            mAdapter.loadData(mViewBinding.refreshLayout,
-                it,
-                page,
-                onRefresh = {
-                    page = 1
-                    mViewModel.getList(page)
-                },
-                onLoadMore = {
-                    page = it
-                    mViewModel.getList(page)
-                },
-                onItemClick = { view: View, i: Int ->
-                })
+        mViewModel.bean.observe(this, Observer {
+            it.data?.run {
+                mAdapter.loadData(mViewBinding.refreshLayout,
+                    this,
+                    page,
+                    onRefresh = {
+                        page = 1
+                        mViewModel.getData(page)
+                    },
+                    onLoadMore = {
+                        page = it
+                        mViewModel.getData(page)
+                    },
+                    onItemClick = { view: View, i: Int ->
+                    })
+            }
+
         })
     }
 

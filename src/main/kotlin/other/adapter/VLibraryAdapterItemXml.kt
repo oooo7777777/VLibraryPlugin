@@ -22,7 +22,7 @@ fun VLibraryAdapterItemXml(
           <import type="${applicationPackage}.R" />
           <variable
             name="bean"
-            type="${applicationPackage}.bean.${className}Bean" />
+            type="${applicationPackage}.bean.${className}Data" />
     </data>
     
       <LinearLayout

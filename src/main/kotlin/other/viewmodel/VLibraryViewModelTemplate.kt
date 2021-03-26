@@ -49,9 +49,9 @@ val VLibraryViewModelTemplate
 
         widgets(
                 TextFieldWidget(className),
-                PackageNameWidget(packageName),
                 TextFieldWidget(classDesc),
-                TextFieldWidget(author)
+                TextFieldWidget(author),
+                PackageNameWidget(packageName)
         )
 
         thumb { File("template_login_activity.png") }
