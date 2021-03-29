@@ -2,6 +2,8 @@
 
 # IntelliJ Platform Plugin Template Changelog
 
+
+
 ## [1.0.0]
 ### Changed
 - Add VLibraryActivity

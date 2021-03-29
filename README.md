@@ -4,15 +4,15 @@
 
 
 #### 1.安装方法
-- ([前往下载](https://plugins.jetbrains.com/plugin/16351-vlibrary))
-- Android Studio File-&gt; Settings.. -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin.jar
+- ([前往下载](https://pan.baidu.com/s/1ujkoM_eX0u2BtRujVQ9z0g)) 提取码: 46pr
+- Android Studio File-&gt; Settings -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin.jar
 - 重启 Android Studio .
 
 #### 2.安装方法
 - 源代码下载下来,编译
 - 运行 Run Plugin
 - 打开\intellij-platform-plugin-template-main\build\libs\找到里面的VLibraryPlugin.jar
-- Android Studio File-&gt; Settings.. -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin.jar
+- Android Studio File-&gt; Settings -&gt; Plugins -&gt; install plugin from disk..导入生成的 VLibraryPlugin.jar
 - 重启 Android Studio .
 
 
@@ -24,3 +24,4 @@
 - 5.一键生成VLibraryDialog(dialog,xml)
 - 6.一键生成VLibraryViewModel(bean,modelView)
 - 7.一键生成VLibraryAdapter(bean,xml,adapter)
+- 8.一键生成自定义得网络架构

@@ -14,7 +14,7 @@ fun VLibraryAcitivityKt(
         isModeView: Boolean,
         resourcePrefixClass: String,
         resourcePrefixXml: String,
-        desc:String
+        desc: String
 ) = if (isModeView)
 {
     """

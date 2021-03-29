@@ -9,7 +9,7 @@ package other.activity
 fun VLibraryTitleString(
         layoutName: String,
         title: String,
-        resourcePrefixXml:String
+        resourcePrefixXml: String
 ) = """<resources>
    <string name="${resourcePrefixXml}string_${layoutName}_title">${title}</string>
 </resources>

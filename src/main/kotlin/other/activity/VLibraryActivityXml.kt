@@ -11,10 +11,10 @@ fun VLibraryActivityXml(
         className: String,
         isModeView: Boolean,
         resourcePrefixXml: String,
-        layoutName:String
+        layoutName: String
 ) = if (isModeView)
-        {
-            """
+{
+    """
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -50,9 +50,9 @@ fun VLibraryActivityXml(
     </LinearLayout>
    
 </layout>"""
-        } else
-        {
-            """
+} else
+{
+    """
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -73,4 +73,4 @@ fun VLibraryActivityXml(
      </LinearLayout>
    
 </layout>"""
-        }
+}
