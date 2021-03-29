@@ -13,8 +13,8 @@
 > 以你包名得最后一段得第一个字母大写为约束,比如包名为com.v.home,资源约束就是h
 > 开启以后res文件里面生成得资源都会以h_为开头,比如h_activity,h_string
 - 2.可一键约束是否生成ModelView代码
-- 3.一键生成VLibraryActivity(bean,ViewModel,activity,xml,注册AndroidManifest)
-- 4.一键生成VLibraryFragment(bean,ViewModel,activity,xml)
+- 3.一键生成VLibraryActivity(bean,modelView,activity,xml,注册AndroidManifest)
+- 4.一键生成VLibraryFragment(bean,modelView,activity,xml)
 - 5.一键生成VLibraryDialog(dialog,xml)
 - 6.一键生成VLibraryViewModel(bean,modelView)
 - 7.一键生成VLibraryAdapter(bean,xml,adapter)
@@ -46,5 +46,5 @@
 - 方法2
 ![方法1](https://images.gitee.com/uploads/images/2021/0329/145118_fd8da60c_699199.jpeg "Dingtalk_20210329145047.jpg")
 
-- 输入框解释(鼠标移动到输入框上面有相对于得中文提示)
+- 输入框解释(鼠标移动到输入框上面有相对应的中文提示)
 ![鼠标移动到输入框上面有相对于得中文提示](https://images.gitee.com/uploads/images/2021/0329/145519_47c73f7c_699199.jpeg "Dingtalk_20210329145503.jpg")
