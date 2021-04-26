@@ -24,6 +24,7 @@ package ${packageName}
 import com.v.base.BaseFragment
 import android.view.View
 import androidx.lifecycle.Observer
+import android.graphics.Color
 import com.v.base.utils.divider
 import com.v.base.utils.linear
 import com.v.base.utils.loadData
