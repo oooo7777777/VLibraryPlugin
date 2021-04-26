@@ -21,10 +21,8 @@
 - 8.一键生成VLibraryNet自定义网络架构
 
 
-
-
 #### 1.安装方法
-- ([前往下载](https://pan.baidu.com/s/1ujkoM_eX0u2BtRujVQ9z0g)) 提取码: 46pr
+- ([前往下载](https://pan.baidu.com/s/1dV-osgEqIaI2XUIJWE1Dzw)) 提取码: k3pi
 - Android Studio File-&gt; Settings -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin.jar
 - 重启 Android Studio .
 
