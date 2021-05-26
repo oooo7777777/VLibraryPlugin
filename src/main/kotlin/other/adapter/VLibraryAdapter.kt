@@ -27,7 +27,7 @@ import ${applicationPackage}.databinding.${resourcePrefixClass}Item${classType}$
 
 ${desc}
 class ${className}${classType}Adapter :
-    BaseQuickAdapter<${className}Data, BaseDataBindingHolder<${resourcePrefixClass}Item${classType}${className}Binding>>(R.layout.${layoutName}) {
+    BaseQuickAdapter<${className}Data, BaseDataBindingHolder<${resourcePrefixClass}Item${classType}${className}Binding>>(R.layout.${resourcePrefixXml}${layoutName}) {
 
     override fun convert(holder: BaseDataBindingHolder<${resourcePrefixClass}Item${classType}${className}Binding>, item: ${className}Data) {
         holder.dataBinding?.run {
