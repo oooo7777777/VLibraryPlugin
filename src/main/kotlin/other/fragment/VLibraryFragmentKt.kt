@@ -11,10 +11,10 @@ fun VLibraryFragmentKt(
         className: String,
         layoutName: String,
         packageName: String,
-        isModeView: Boolean,
+        isViewMode: Boolean,
         resourcePrefixClass: String,
         desc:String
-) = if (isModeView)
+) = if (isViewMode)
 {
     """
 package ${packageName}

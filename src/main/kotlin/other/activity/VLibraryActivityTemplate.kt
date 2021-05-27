@@ -40,7 +40,7 @@ val VLibraryActivityTemplate
             suggest = { "${activityToLayout(className.value.toCamelCase())}" }
         }
 
-        val isModeView = booleanParameter {
+        val isViewMode = booleanParameter {
             name = "Is ViewMode"
             default = true
             help = "是否生成ViewMode代码"
@@ -80,7 +80,7 @@ val VLibraryActivityTemplate
 
         widgets(
                 TextFieldWidget(className),
-                CheckBoxWidget(isModeView),
+                CheckBoxWidget(isViewMode),
                 CheckBoxWidget(isResourcePrefix),
                 TextFieldWidget(title),
                 TextFieldWidget(classDesc),
@@ -96,7 +96,7 @@ val VLibraryActivityTemplate
                     className.value,
                     "${activityToLayout(className.value.toCamelCase())}",
                     packageName.value,
-                    isModeView.value,
+                    isViewMode.value,
                     isResourcePrefix.value,
                     title.value,
                     author.value,

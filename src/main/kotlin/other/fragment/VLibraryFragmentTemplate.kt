@@ -40,7 +40,7 @@ val VLibraryFragmentTemplate
             suggest = { "${fragmentToLayout(className.value.toCamelCase())}" }
         }
 
-        val isModeView = booleanParameter {
+        val isViewMode = booleanParameter {
             name = "Is ViewMode"
             default = true
             help = "是否生成ViewMode代码"
@@ -71,7 +71,7 @@ val VLibraryFragmentTemplate
 
         widgets(
                 TextFieldWidget(className),
-                CheckBoxWidget(isModeView),
+                CheckBoxWidget(isViewMode),
                 CheckBoxWidget(isResourcePrefix),
                 TextFieldWidget(classDesc),
                 TextFieldWidget(author),
@@ -86,7 +86,7 @@ val VLibraryFragmentTemplate
                     className.value,
                     "${fragmentToLayout(className.value.toCamelCase())}",
                     packageName.value,
-                    isModeView.value,
+                    isViewMode.value,
                     isResourcePrefix.value,
                     author.value,
                     classDesc.value)

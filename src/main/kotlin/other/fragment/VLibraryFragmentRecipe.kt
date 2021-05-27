@@ -25,7 +25,7 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
         className: String,
         layoutName: String,
         packageName: String,
-        isModeView: Boolean,
+        isViewMode: Boolean,
         isResourcePrefix: Boolean,
         author: String,
         classDesc: String
@@ -68,16 +68,16 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
     //获取包名根目录
     val pkFile = getApplicationPackageFile(srcOut, applicationPackage)
 
-    val activity = VLibraryFragmentKt(applicationPackage, className, layoutName, packageName, isModeView, resourcePrefixClass, headerString)
+    val activity = VLibraryFragmentKt(applicationPackage, className, layoutName, packageName, isViewMode, resourcePrefixClass, headerString)
 
     // 保存Fragment
     save(activity, srcOut.resolve("${className}Fragment.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryFragmentXml(applicationPackage, packageName, className, isModeView, resourcePrefixXml, layoutName), resOut.resolve("layout/${resourcePrefixXml}${layoutName}.xml"))
+    save(VLibraryFragmentXml(applicationPackage, packageName, className, isViewMode, resourcePrefixXml, layoutName), resOut.resolve("layout/${resourcePrefixXml}${layoutName}.xml"))
 
 
-    if (isModeView)
+    if (isViewMode)
     {
         // 保存viewModel
         save(VLibraryViewModel(applicationPackage, className, headerString), pkFile.resolve("model/${className}ViewModel.${ktOrJavaExt}"))

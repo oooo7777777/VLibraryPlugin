@@ -25,7 +25,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         className: String,
         layoutName: String,
         packageName: String,
-        isModeView: Boolean,
+        isViewMode: Boolean,
         isResourcePrefix: Boolean,
         title: String,
         author: String,
@@ -72,16 +72,16 @@ fun RecipeExecutor.VLibraryActivityRecipe(
 
 
     // 保存Activity
-    save(VLibraryAcitivityKt(applicationPackage, className, layoutName, packageName, isModeView, resourcePrefixClass, resourcePrefixXml, headerString), srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
+    save(VLibraryAcitivityKt(applicationPackage, className, layoutName, packageName, isViewMode, resourcePrefixClass, resourcePrefixXml, headerString), srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
 
     // 保存xml
-    save(VLibraryActivityXml(applicationPackage, packageName, className, isModeView, resourcePrefixXml, layoutName), resOut.resolve("layout/${resourcePrefixXml}${layoutName}.xml"))
+    save(VLibraryActivityXml(applicationPackage, packageName, className, isViewMode, resourcePrefixXml, layoutName), resOut.resolve("layout/${resourcePrefixXml}${layoutName}.xml"))
 
     // 保存titleString
     mergeXml(VLibraryTitleString(layoutName, title, resourcePrefixXml), resOut.resolve("values/strings.xml"))
 
 
-    if (isModeView)
+    if (isViewMode)
     {
         // 保存viewModel
         save(VLibraryViewModel(applicationPackage, className, headerString), pkFile.resolve("model/${className}ViewModel.${ktOrJavaExt}"))

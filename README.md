@@ -12,11 +12,11 @@
 - 1.可一键约束资源命名(组件化开发下使用)
 > 以你包名得最后一段得第一个字母大写为约束,比如包名为com.v.home,资源约束就是h
 > 开启以后res文件里面生成得资源都会以h_为开头,比如h_activity,h_string
-- 2.可一键约束是否生成ModelView代码
-- 3.一键生成VLibraryActivity(bean,modelView,activity,xml,注册AndroidManifest)
-- 4.一键生成VLibraryFragment(bean,modelView,activity,xml)
+- 2.可一键约束是否生成ViewModel代码
+- 3.一键生成VLibraryActivity(bean,viewModel,activity,xml,注册AndroidManifest)
+- 4.一键生成VLibraryFragment(bean,viewModel,activity,xml)
 - 5.一键生成VLibraryDialog(dialog,xml)
-- 6.一键生成VLibraryViewModel(bean,modelView)
+- 6.一键生成VLibraryViewModel(bean,viewModel)
 - 7.一键生成VLibraryAdapter(bean,xml,adapter)
 - 8.一键生成VLibraryNet自定义网络架构
 

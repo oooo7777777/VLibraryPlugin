@@ -9,10 +9,10 @@ fun VLibraryActivityXml(
         applicationPackage: String,
         packageName: String,
         className: String,
-        isModeView: Boolean,
+        isViewMode: Boolean,
         resourcePrefixXml: String,
         layoutName: String
-) = if (isModeView)
+) = if (isViewMode)
 {
     """
 <?xml version="1.0" encoding="utf-8"?>
