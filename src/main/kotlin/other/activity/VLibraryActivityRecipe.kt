@@ -44,7 +44,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
             " */"
 
 
-    val (projectData, srcOut, resOut) = moduleData
+    val (projectData, srcOut, resOut,manifestOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
     var applicationPackage = projectData.applicationPackage
 
@@ -95,15 +95,19 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     }
 
     //添加activity到Manifest
-    generateManifest(
-            moduleData = moduleData,
-            activityClass = "${className}Activity",
-            activityTitle = className,
-            packageName = packageName,
-            isLauncher = false,
-            hasNoActionBar = false,
-            generateActivityTitle = false
-    )
+//    generateManifest(
+//            moduleData = moduleData,
+//            activityClass = "${className}Activity",
+//            activityTitle = className,
+//            packageName = packageName,
+//            isLauncher = false,
+//            hasNoActionBar = false,
+//            generateActivityTitle = false
+//    )
+
+    //添加activity到Manifest
+    mergeXml(androidManifestXml("${packageName}.${className}Activity"),
+        manifestOut.resolve("AndroidManifest.xml"))
 
     open(srcOut.resolve("${className}Activity.${ktOrJavaExt}"))
 
