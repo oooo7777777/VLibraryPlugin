@@ -67,7 +67,7 @@ fun RecipeExecutor.VLibraryAdapterRecipe(
     val  pkFile =  getApplicationPackageFile(srcOut,applicationPackage)
 
     // 保存adapter
-    save(VLibraryAdapter(applicationPackage, className,"", layoutName,resourcePrefixClass, resourcePrefixXml,headerString), pkFile.resolve("adapter/${className}Adapter.${ktOrJavaExt}"))
+    save(VLibraryAdapter(applicationPackage, className,"", resourcePrefixXml+layoutName,resourcePrefixClass, resourcePrefixXml,headerString), pkFile.resolve("adapter/${className}Adapter.${ktOrJavaExt}"))
     // 保存adapterItemXml
     save(VLibraryAdapterItemXml(applicationPackage, packageName, className,""), resOut.resolve("layout/${resourcePrefixXml}${layoutName}.xml"))
     // 保存bean
