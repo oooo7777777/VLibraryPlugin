@@ -1,17 +1,19 @@
 package other.dialog
 
+
+import android.databinding.tool.ext.toCamelCase
+import com.android.tools.idea.wizard.template.*
+import com.android.tools.idea.wizard.template.AssetNameConverter.Type
+import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
+import other.utlis.getHeaderString
+import java.io.File
+
 /**
  * @Author : ww
  * desc    :
  * time    : 2021/2/19 11:09
  */
-import android.databinding.tool.ext.toCamelCase
-import com.android.tools.idea.wizard.template.*
-import com.android.tools.idea.wizard.template.AssetNameConverter.Type
-import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
-import java.io.File
-
-
 val VLibraryDialogTemplate
     get() = template {
         revision = 1
@@ -43,24 +45,24 @@ val VLibraryDialogTemplate
             help = "请输入布局的名字"
             constraints = listOf(Constraint.LAYOUT, Constraint.UNIQUE, Constraint.NONEMPTY)
             suggest = { "${dialogToLayout(className.value.toCamelCase())}" }
+
         }
 
         val author = stringParameter {
             name = "Author"
-            default = " "
             help = "开发者"
+            default = ""
             constraints = listOf(Constraint.NONEMPTY)
 
         }
 
         val classDesc = stringParameter {
             name = "Description"
-            default = " "
             help = "描述一下方法的作用"
+            default = ""
             constraints = listOf(Constraint.NONEMPTY)
 
         }
-
 
         widgets(
                 TextFieldWidget(className),
@@ -76,11 +78,10 @@ val VLibraryDialogTemplate
             VLibraryDialogRecipe(
                     data as ModuleTemplateData,
                     className.value,
-                    isResourcePrefix.value,
                     "${dialogToLayout(className.value.toCamelCase())}",
                     packageName.value,
-                    author.value,
-                    classDesc.value)
+                    isResourcePrefix.value,
+                    getHeaderString(author.value, classDesc.value))
         }
     }
 
@@ -100,4 +101,6 @@ fun dialogToLayout(dialogName: String, layoutName: String? = null): String =
                     .getValue(Type.LAYOUT)
         else
             ""
+
+
 

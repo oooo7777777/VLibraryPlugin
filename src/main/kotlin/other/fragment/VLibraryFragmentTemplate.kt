@@ -1,16 +1,18 @@
 package other.fragment
 
+
+import android.databinding.tool.ext.toCamelCase
+import com.android.tools.idea.wizard.template.*
+import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
+import other.utlis.getHeaderString
+import java.io.File
+
 /**
  * @Author : ww
  * desc    :
  * time    : 2021/2/19 11:09
  */
-import android.databinding.tool.ext.toCamelCase
-import com.android.tools.idea.wizard.template.*
-import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
-import java.io.File
-
-
 val VLibraryFragmentTemplate
     get() = template {
         revision = 1
@@ -21,7 +23,12 @@ val VLibraryFragmentTemplate
 
         category = Category.Other
         formFactor = FormFactor.Mobile
-        screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+        screens = listOf(
+                WizardUiContext.ActivityGallery,
+                WizardUiContext.MenuEntry,
+                WizardUiContext.NewProject,
+                WizardUiContext.NewModule
+        )
 
         val packageName = defaultPackageNameParameter
 
@@ -29,7 +36,7 @@ val VLibraryFragmentTemplate
             name = "Fragment Name"
             default = "Main"
             help = "只输入名字，不要包含Fragment"
-            constraints = listOf(Constraint.NONEMPTY)
+            constraints = listOf(Constraint.UNIQUE, Constraint.NONEMPTY)
         }
 
         val layoutName = stringParameter {
@@ -55,15 +62,15 @@ val VLibraryFragmentTemplate
 
         val author = stringParameter {
             name = "Author"
-            default = " "
             help = "开发者"
+            default = ""
             constraints = listOf(Constraint.NONEMPTY)
         }
 
         val classDesc = stringParameter {
             name = "Description"
-            default = " "
             help = "描述一下方法的作用"
+            default = ""
             constraints = listOf(Constraint.NONEMPTY)
 
         }
@@ -84,12 +91,12 @@ val VLibraryFragmentTemplate
             VLibraryFragmentRecipe(
                     data as ModuleTemplateData,
                     className.value,
-                    "${fragmentToLayout(className.value.toCamelCase())}",
+                    "${fragmentToLayout(className.value.toLowerCaseAsciiOnly())}",
                     packageName.value,
                     isViewMode.value,
                     isResourcePrefix.value,
-                    author.value,
-                    classDesc.value)
+                    getHeaderString(author.value, classDesc.value)
+            )
         }
     }
 

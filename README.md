@@ -22,7 +22,7 @@
 
 
 #### 1.安装方法
-- ([前往下载](https://pan.baidu.com/s/1dV-osgEqIaI2XUIJWE1Dzw)) 提取码: k3pi
+- ([下载](https://github.com/oooo7777777/VLibraryPlugin/blob/master/VLibraryPlugin-3.0.0.jar)) 
 - Android Studio File-&gt; Settings -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin.jar
 - 重启 Android Studio .
 

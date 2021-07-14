@@ -5,7 +5,7 @@
 
     <description>Code template plugin based on VLibrary</description>
     <change-notes>Update dialog template </change-notes>
-    <version>1.0.0</version>
+    <version>3.0.0</version>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->

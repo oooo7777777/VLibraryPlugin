@@ -1,15 +1,18 @@
 package other.adapter
 
+
+import android.databinding.tool.ext.toCamelCase
+import com.android.tools.idea.wizard.template.*
+import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
+import other.utlis.getHeaderString
+import java.io.File
+
 /**
  * @Author : ww
  * desc    :
  * time    : 2021/2/19 11:09
  */
-import com.android.tools.idea.wizard.template.*
-import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
-import java.io.File
-
-
 val VLibraryAdapterTemplate
     get() = template {
         revision = 1
@@ -20,7 +23,12 @@ val VLibraryAdapterTemplate
 
         category = Category.Other
         formFactor = FormFactor.Mobile
-        screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+        screens = listOf(
+                WizardUiContext.ActivityGallery,
+                WizardUiContext.MenuEntry,
+                WizardUiContext.NewProject,
+                WizardUiContext.NewModule
+        )
 
         val packageName = defaultPackageNameParameter
 
@@ -40,16 +48,16 @@ val VLibraryAdapterTemplate
 
         val author = stringParameter {
             name = "Author"
-            default = " "
             help = "开发者"
+            default = ""
             constraints = listOf(Constraint.NONEMPTY)
 
         }
 
         val classDesc = stringParameter {
             name = "Description"
-            default = " "
             help = "描述一下方法的作用"
+            default = ""
             constraints = listOf(Constraint.NONEMPTY)
 
         }
@@ -69,10 +77,11 @@ val VLibraryAdapterTemplate
             VLibraryAdapterRecipe(
                     data as ModuleTemplateData,
                     className.value,
-                    isResourcePrefix.value,
+                    className.value.toLowerCaseAsciiOnly(),
                     packageName.value,
-                    author.value,
-                    classDesc.value)
+                    isResourcePrefix.value,
+                    getHeaderString(author.value, classDesc.value)
+            )
         }
     }
 

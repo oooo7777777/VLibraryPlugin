@@ -13,3 +13,9 @@
 - Add VLibraryViewModel
 - Add custom network request
 
+## [3.0.0]
+### Changed
+- compatible with VLibrary3.0.0
+- refactor the code 
+
+

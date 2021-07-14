@@ -17,32 +17,19 @@ import java.util.*
 fun RecipeExecutor.VLibraryNetRecipe(
         moduleData: ModuleTemplateData,
         packageName: String,
-        author: String,
-        classDesc: String
-)
-{
-
-    var date = Date(System.currentTimeMillis())
-    var format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-
-    val headerString = "" +
-            "/**\n" +
-            " * author  : ${author}\n" +
-            " * desc    : ${classDesc} \n" +
-            " * time    : ${format.format(date)} \n" +
-            " */"
+        headerString: String
+) {
 
 
-    val (projectData, srcOut, resOut) = moduleData
+    val (projectData, srcOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
     var applicationPackage = projectData.applicationPackage
 
-    if (applicationPackage.isNullOrEmpty())
-    {
+    if (applicationPackage.isNullOrEmpty()) {
         applicationPackage = escapeKotlinIdentifier(packageName)
     }
     //获取包名根目录
-    val  pkFile =  getApplicationPackageFile(srcOut,applicationPackage)
+    val pkFile = getApplicationPackageFile(srcOut, applicationPackage)
 
     // 保存ApiResponse
     save(VLibraryNetApiResponse(applicationPackage, headerString), pkFile.resolve("net/ApiResponse.${ktOrJavaExt}"))

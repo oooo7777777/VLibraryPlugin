@@ -1,15 +1,16 @@
 package other.viewmodel
 
+
+import com.android.tools.idea.wizard.template.*
+import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.utlis.getHeaderString
+import java.io.File
+
 /**
  * @Author : ww
  * desc    :
  * time    : 2021/2/19 11:09
  */
-import com.android.tools.idea.wizard.template.*
-import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
-import java.io.File
-
-
 val VLibraryViewModelTemplate
     get() = template {
         revision = 1
@@ -20,7 +21,12 @@ val VLibraryViewModelTemplate
 
         category = Category.Other
         formFactor = FormFactor.Mobile
-        screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+        screens = listOf(
+                WizardUiContext.ActivityGallery,
+                WizardUiContext.MenuEntry,
+                WizardUiContext.NewProject,
+                WizardUiContext.NewModule
+        )
 
         val packageName = defaultPackageNameParameter
 
@@ -31,16 +37,23 @@ val VLibraryViewModelTemplate
             constraints = listOf(Constraint.NONEMPTY)
         }
 
+        val isResourcePrefix = booleanParameter {
+            name = "Is ResourcePrefix"
+            default = true
+            help = "是否约束资源文件命名(组件化开发的时候勾选)"
+        }
+
+
         val author = stringParameter {
             name = "Author"
-            default = " "
+            default = ""
             help = "开发者"
             constraints = listOf(Constraint.NONEMPTY)
         }
 
         val classDesc = stringParameter {
             name = "Description"
-            default = " "
+            default = ""
             help = "描述一下方法的作用"
             constraints = listOf(Constraint.NONEMPTY)
 
@@ -49,6 +62,7 @@ val VLibraryViewModelTemplate
 
         widgets(
                 TextFieldWidget(className),
+                CheckBoxWidget(isResourcePrefix),
                 TextFieldWidget(classDesc),
                 TextFieldWidget(author),
                 PackageNameWidget(packageName)
@@ -61,8 +75,9 @@ val VLibraryViewModelTemplate
                     data as ModuleTemplateData,
                     className.value,
                     packageName.value,
-                    author.value,
-                    classDesc.value)
+                    isResourcePrefix.value,
+                    getHeaderString(author.value, classDesc.value)
+            )
         }
     }
 

@@ -7,20 +7,19 @@ package other.dialog
  */
 fun VLibraryDialogXml(
         applicationPackage: String,
-        packageName: String,
         className: String,
 ) = """
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="${applicationPackage}.dialog.${className}Dialog">
+    tools:context="${applicationPackage}.dialog.${className}">
 
     <data>
           <import type="${applicationPackage}.R" />
           <variable
             name="v"
-            type="${applicationPackage}.dialog.${className}Dialog" />
+            type="${applicationPackage}.dialog.${className}" />
     </data>
     
       <RelativeLayout
@@ -29,12 +28,12 @@ fun VLibraryDialogXml(
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            app:cardBackgroundColor="@color/base_white"
-            app:cardCornerRadius="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp">
+            android:layout_marginRight="40dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="6dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -69,7 +68,7 @@ fun VLibraryDialogXml(
 
                 <View
                     android:id="@+id/tvLine"
-                    style="@style/base_line_horizontal"
+                    style="@style/vb_line_horizontal"
                     android:layout_below="@+id/tvContent" />
 
                 <LinearLayout
@@ -79,31 +78,30 @@ fun VLibraryDialogXml(
                     android:orientation="horizontal">
 
                     <TextView
-                        android:onClick="@{v}"
                         android:id="@+id/tvLeft"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="15dp"
-                        android:text="@string/base_cancel"
+                        android:text="取消"
                         android:textColor="#999999"
-                        android:textSize="12.5sp" />
+                        android:textSize="12.5sp"
+                        app:vb_click="@{v}" />
 
-                    <View
-                        style="@style/base_line_vertical" />
+                    <View style="@style/vb_line_vertical" />
 
                     <TextView
-                        android:onClick="@{v}"
                         android:id="@+id/tvRight"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="15dp"
-                        android:text="@string/base_i_know"
+                        android:text="确定"
                         android:textColor="#FF5369"
-                        android:textSize="12.5sp" />
+                        android:textSize="12.5sp"
+                        app:vb_click="@{v}" />
                 </LinearLayout>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

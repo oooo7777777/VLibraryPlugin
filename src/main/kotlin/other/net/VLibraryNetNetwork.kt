@@ -12,9 +12,10 @@ fun VLibraryNetNetwork(
 package ${applicationPackage}.net
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.v.base.net.BaseLogInterceptor
-import com.v.base.net.BaseNetwork
-import com.v.base.net.FastJsonConverterFactory
+import com.v.base.net.VBFastJsonConverterFactory
+import com.v.base.net.VBLogInterceptor
+
+import com.v.base.net.VBNetwork
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit
 
 
 ${desc}
-class Network : BaseNetwork() {
+class Network : VBNetwork() {
 
     companion object {
 
@@ -46,7 +47,7 @@ class Network : BaseNetwork() {
             //示例：添加公共heads 注意要设置在日志拦截器之前，不然Log中会不显示head信息
             addInterceptor(NetworkHeadInterceptor())
             // 日志拦截器
-            addInterceptor(BaseLogInterceptor())
+            addInterceptor(VBLogInterceptor())
             //超时时间 连接、读、写
             connectTimeout(10, TimeUnit.SECONDS)
             readTimeout(5, TimeUnit.SECONDS)
@@ -61,7 +62,7 @@ class Network : BaseNetwork() {
      */
     override fun setRetrofitBuilder(builder: Retrofit.Builder): Retrofit.Builder {
         return builder.apply {
-            addConverterFactory(FastJsonConverterFactory.create())
+            addConverterFactory(VBFastJsonConverterFactory.create())
             addCallAdapterFactory(CoroutineCallAdapterFactory())
         }
     }

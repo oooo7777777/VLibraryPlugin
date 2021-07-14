@@ -7,6 +7,7 @@ package other.net
  */
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.utlis.getHeaderString
 import java.io.File
 
 
@@ -24,18 +25,16 @@ val VLibraryNetTemplate
 
         val packageName = defaultPackageNameParameter
 
-
-
         val author = stringParameter {
             name = "Author"
-            default = " "
             help = "开发者"
+            default = ""
             constraints = listOf(Constraint.NONEMPTY)
         }
 
         val classDesc = stringParameter {
             name = "Description"
-            default = "自定义得网络请求"
+            default = "自定义网络请求"
             help = "描述一下方法的作用"
             constraints = listOf(Constraint.NONEMPTY)
 
@@ -54,8 +53,7 @@ val VLibraryNetTemplate
             VLibraryNetRecipe(
                     data as ModuleTemplateData,
                     packageName.value,
-                    author.value,
-                    classDesc.value)
+                    getHeaderString(author.value, classDesc.value))
         }
     }
 
