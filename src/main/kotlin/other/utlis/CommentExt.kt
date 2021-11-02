@@ -28,7 +28,7 @@ fun getApplicationPackageFile(srcOut: File, applicationPackage: String): File {
     val status: Boolean = applicationPackageFile.contains(pk)
     return if (status) {
         var file =
-                applicationPackageFile.substring(0, applicationPackageFile.indexOf(pk)) + pk + "\\"
+            applicationPackageFile.substring(0, applicationPackageFile.indexOf(pk)) + pk + "\\"
         File(file)
     } else {
         srcOut
@@ -76,11 +76,17 @@ fun getHeaderString(author: String, classDesc: String): String {
  * 是否约束资源文件命名
  * 如果约束了就获取当前applicationPackage的最后一段的第一个字母为约束并且转换成大写字母
  */
-fun getResPrefixClass(aPk: String, isResPrefix: Boolean): String {
-    return if (isResPrefix) {
-        getResourcePrefix(aPk).toUpperCase()
+fun getResPrefixClass(aPk: String, resourcePrefixName: String, isResPrefix: Boolean): String {
+    //判断约束资源名称用户是否输入
+    return if (!resourcePrefixName.isNullOrEmpty()) {
+        resourcePrefixName.toUpperCase()
     } else {
-        ""
+        //判断是否选中了约束按钮
+        if (isResPrefix) {
+            getResourcePrefix(aPk).toUpperCase()
+        } else {
+            ""
+        }
     }
 }
 
@@ -89,11 +95,17 @@ fun getResPrefixClass(aPk: String, isResPrefix: Boolean): String {
  * 是否约束资源文件命名
  * 如果约束了就获取当前applicationPackage的最后一段的第一个字母为约束并且转换成大写字母
  */
-fun getResPrefixXml(aPk: String, isResPrefix: Boolean): String {
-    return if (isResPrefix) {
-        getResourcePrefix(aPk).toLowerCase() + "_"
+fun getResPrefixXml(aPk: String, resourcePrefixName: String, isResPrefix: Boolean): String {
+    //判断约束资源名称用户是否输入
+    return if (!resourcePrefixName.isNullOrEmpty()) {
+        resourcePrefixName.toLowerCase() + "_"
     } else {
-        ""
+        //判断是否选中了约束按钮
+        if (isResPrefix) {
+            getResourcePrefix(aPk).toLowerCase() + "_"
+        } else {
+            ""
+        }
     }
 }
 
@@ -107,11 +119,11 @@ fun getResPrefixXml(aPk: String, isResPrefix: Boolean): String {
  * 当前生成对应类的item
  */
 fun getStrXml(
-        isViewMode: Boolean,
-        applicationPackage: String,
-        packageName: String,
-        className: String,
-        classNameItem: String
+    isViewMode: Boolean,
+    applicationPackage: String,
+    packageName: String,
+    className: String,
+    classNameItem: String
 ): String {
     if (isViewMode) {
         return """
@@ -322,14 +334,14 @@ fun getStrXmlItem(apk: String, className: String): String {
  * 获取class 生成代码
  */
 fun getStrClass(
-        isViewMode: Boolean,
-        applicationPackage: String,
-        packageName: String,
-        className: String,
-        typeName: String,
-        xmlName: String,
-        toolBar: String,
-        headerString: String
+    isViewMode: Boolean,
+    applicationPackage: String,
+    packageName: String,
+    className: String,
+    typeName: String,
+    xmlName: String,
+    toolBar: String,
+    headerString: String
 ) = if (isViewMode) {
     """
 package ${packageName}
@@ -342,7 +354,8 @@ import android.graphics.Color
 import com.v.base.VB${typeName}
 import com.v.base.utils.ext.vbDivider
 import com.v.base.utils.ext.vbLinear
-import com.v.base.utils.ext.vbLoadData
+import com.v.base.utils.ext.vbConfig
+import com.v.base.utils.ext.vbLoad
 import ${applicationPackage}.adapter.${className}Adapter
 import ${applicationPackage}.viewmodel.${className}ViewModel
 import ${applicationPackage}.databinding.${xmlName}Binding
@@ -352,39 +365,42 @@ class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}Vie
    
   private var page =1
   
-  
   private val mAdapter by lazy {
         mDataBinding.recyclerView.vbDivider{
-                setColor(Color.parseColor("#ff0000"))
-                setDivider(10)
+                setDivider(5)
             }
-            .vbLinear(${className}Adapter()) as ${className}Adapter
+            .vbLinear(${className}Adapter())
+            .apply {
+                vbConfig(mDataBinding.refreshLayout,
+                    onRefresh = {
+                        page = 1
+                        mViewModel.getData(page)
+                    },
+                    onLoadMore={
+                        mViewModel.getData(page)
+                    },
+                    onItemClick = { view, position ->
+                        
+                    })
+            } as ${className}Adapter
     }
 
     ${toolBar}
     
     override fun initData() {
         mDataBinding.v = this
+        mAdapter
         mDataBinding.refreshLayout.autoRefresh()
-        mViewModel.getData(page)
     }
 
     override fun createObserver() {
         mViewModel.bean.observe(this, Observer {
             it.data?.run {
-                mAdapter.vbLoadData(mDataBinding.refreshLayout,
-                    this,
-                    page,
-                    onRefresh = {
-                        page = 1
-                        mViewModel.getData(page)
-                    },
-                    onLoadMore = {
-                        page = it
-                        mViewModel.getData(page)
-                    },
-                    onItemClick = { view: View, i: Int ->
+                 mAdapter.vbLoad(this, page, mDataBinding.refreshLayout,
+                    onSuccess = {
+                         page = it
                     })
+
             }
 
         })
@@ -436,10 +452,10 @@ class ${className}${typeName} : VB${typeName}<${xmlName}Binding, VBBlankViewMode
 /**
  * 获取string 生成代码
  */
-fun getStrString(resourcePrefixXml: String, title: String): String {
+fun getStrString(titleName: String, title: String): String {
     return """
 <resources>
-   <string name="${resourcePrefixXml}string_title">${title}</string>
+   <string name="${titleName}">${title}</string>
 </resources>
 """
 }
@@ -447,7 +463,7 @@ fun getStrString(resourcePrefixXml: String, title: String): String {
 /**
  * 获取Activity 标题栏生成代码
  */
-fun getStrTitle(resourcePrefixXml: String, title: String): String {
+fun getStrTitle(titleName: String, title: String): String {
     return if (title.isNullOrEmpty()) {
         ""
     } else {
@@ -459,7 +475,7 @@ fun getStrTitle(resourcePrefixXml: String, title: String): String {
         listener: View.OnClickListener?
     ) {
         super.toolBarTitle(
-            this.getString(R.string.${resourcePrefixXml}string_title),
+            this.getString(R.string.${titleName}),
             titleColor,
             isShowBottomLine,
             listener
@@ -474,7 +490,7 @@ fun getStrTitle(resourcePrefixXml: String, title: String): String {
  * 获取Activity注册 生成代码
  */
 fun getStrAndroidManifestXml(
-        activityClass: String
+    activityClass: String
 ): String {
     return """
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -490,10 +506,11 @@ fun getStrAndroidManifestXml(
  * 获取dialog 生成代码
  */
 fun getStrDialog(
-        applicationPackage: String,
-        className: String,
-        lastLayoutName: String,
-        headerString: String): String {
+    applicationPackage: String,
+    className: String,
+    lastLayoutName: String,
+    headerString: String
+): String {
     return """
 package ${applicationPackage}.dialog
 

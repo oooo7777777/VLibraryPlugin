@@ -21,10 +21,10 @@ val VLibraryActivityTemplate
         category = Category.Other
         formFactor = FormFactor.Mobile
         screens = listOf(
-                WizardUiContext.ActivityGallery,
-                WizardUiContext.MenuEntry,
-                WizardUiContext.NewProject,
-                WizardUiContext.NewModule
+            WizardUiContext.ActivityGallery,
+            WizardUiContext.MenuEntry,
+            WizardUiContext.NewProject,
+            WizardUiContext.NewModule
         )
 
         val packageName = defaultPackageNameParameter
@@ -53,7 +53,14 @@ val VLibraryActivityTemplate
         val isResourcePrefix = booleanParameter {
             name = "Is ResourcePrefix"
             default = true
-            help = "是否约束资源文件命名(组件化开发的时候勾选)"
+            help = "是否约束资源文件命名(自动识别,组件化开发的时候勾选)"
+
+        }
+
+        val resourcePrefixName = stringParameter {
+            name = "ResourcePrefix Name"
+            default = ""
+            help = "约束资源文件命名(手动输入的优先级高)"
         }
 
         val title = stringParameter {
@@ -79,13 +86,14 @@ val VLibraryActivityTemplate
 
 
         widgets(
-                TextFieldWidget(className),
-                CheckBoxWidget(isViewMode),
-                CheckBoxWidget(isResourcePrefix),
-                TextFieldWidget(title),
-                TextFieldWidget(classDesc),
-                TextFieldWidget(author),
-                PackageNameWidget(packageName)
+            TextFieldWidget(className),
+            CheckBoxWidget(isViewMode),
+            CheckBoxWidget(isResourcePrefix),
+            TextFieldWidget(resourcePrefixName),
+            TextFieldWidget(title),
+            TextFieldWidget(classDesc),
+            TextFieldWidget(author),
+            PackageNameWidget(packageName)
         )
 
         thumb { File("template_login_activity.png") }
@@ -93,14 +101,15 @@ val VLibraryActivityTemplate
 
         recipe = { data: TemplateData ->
             VLibraryActivityRecipe(
-                    data as ModuleTemplateData,
-                    className.value,
-                    "${activityToLayout(className.value.toCamelCase())}",
-                    title.value,
-                    packageName.value,
-                    isViewMode.value,
-                    isResourcePrefix.value,
-                    getHeaderString(author.value, classDesc.value)
+                data as ModuleTemplateData,
+                className.value,
+                "${activityToLayout(className.value.toCamelCase())}",
+                title.value,
+                packageName.value,
+                isViewMode.value,
+                isResourcePrefix.value,
+                getHeaderString(author.value, classDesc.value),
+                resourcePrefixName.value
             )
         }
     }

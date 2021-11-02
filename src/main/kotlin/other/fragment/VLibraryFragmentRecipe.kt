@@ -19,7 +19,8 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
         packageName: String,//当前右键选择新建的路径名称
         isViewMode: Boolean,//是否生成ViewMode代码
         isResourcePrefix: Boolean,//是否约束资源命名
-        headerString: String//注释
+        headerString: String,//注释
+        resourcePrefixName: String//资源自己约束
 ) {
 
     val (projectData, srcOut, resOut) = moduleData
@@ -31,10 +32,10 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
     }
 
     //获取约束资源命名class
-    var resourcePrefixClass = getResPrefixClass(applicationPackage, isResourcePrefix)
+    var resourcePrefixClass = getResPrefixClass(applicationPackage, resourcePrefixName,isResourcePrefix)
 
     //获取约束资源命名xml
-    var resourcePrefixXml = getResPrefixXml(applicationPackage, isResourcePrefix)
+    var resourcePrefixXml = getResPrefixXml(applicationPackage,resourcePrefixName, isResourcePrefix)
 
     //获取包名根目录 用来生成 bean adapter ViewModel 的路径
     val pkFile = getApplicationPackageFile(srcOut, applicationPackage)
