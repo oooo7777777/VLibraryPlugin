@@ -14,11 +14,9 @@ import java.io.File
  */
 val VLibraryActivityTemplate
     get() = template {
-        revision = 1
         name = "VLibrary Activity"
         description = "适用于VLibrary框架的Activity"
-        minApi = MIN_API
-        minBuildApi = MIN_API
+
 
         category = Category.Other
         formFactor = FormFactor.Mobile

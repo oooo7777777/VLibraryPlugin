@@ -16,11 +16,9 @@ import java.io.File
  */
 val VLibraryDialogTemplate
     get() = template {
-        revision = 1
         name = "VLibrary Dialog"
         description = "适用于VLibrary框架的Dialog"
-        minApi = MIN_API
-        minBuildApi = MIN_API
+
 
         category = Category.Other
         formFactor = FormFactor.Mobile

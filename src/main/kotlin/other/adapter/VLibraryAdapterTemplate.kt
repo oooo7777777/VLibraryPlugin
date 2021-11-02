@@ -15,11 +15,9 @@ import java.io.File
  */
 val VLibraryAdapterTemplate
     get() = template {
-        revision = 1
         name = "VLibrary Adapter"
         description = "适用于VLibrary框架的Adapter"
-        minApi = MIN_API
-        minBuildApi = MIN_API
+
 
         category = Category.Other
         formFactor = FormFactor.Mobile

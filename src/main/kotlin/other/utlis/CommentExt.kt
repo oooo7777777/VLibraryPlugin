@@ -452,8 +452,18 @@ fun getStrTitle(resourcePrefixXml: String, title: String): String {
         ""
     } else {
         """
-    override fun toolBarTitle(title: String, titleColor: Int) {
-        super.toolBarTitle(this.getString(R.string.${resourcePrefixXml}string_title), titleColor)
+    override fun toolBarTitle(
+        title: String,
+        titleColor: Int,
+        isShowBottomLine: Boolean,
+        listener: View.OnClickListener?
+    ) {
+        super.toolBarTitle(
+            this.getString(R.string.${resourcePrefixXml}string_title),
+            titleColor,
+            isShowBottomLine,
+            listener
+        )
     }
     """
     }

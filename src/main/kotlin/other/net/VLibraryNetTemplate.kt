@@ -13,11 +13,9 @@ import java.io.File
 
 val VLibraryNetTemplate
     get() = template {
-        revision = 1
         name = "VLibrary Net"
         description = "适用于VLibrary框架的自定义网络请求"
-        minApi = MIN_API
-        minBuildApi = MIN_API
+
 
         category = Category.Other
         formFactor = FormFactor.Mobile

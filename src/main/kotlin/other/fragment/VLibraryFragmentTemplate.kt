@@ -15,11 +15,9 @@ import java.io.File
  */
 val VLibraryFragmentTemplate
     get() = template {
-        revision = 1
         name = "VLibrary Fragment"
         description = "适用于VLibrary框架的Fragment"
-        minApi = MIN_API
-        minBuildApi = MIN_API
+
 
         category = Category.Other
         formFactor = FormFactor.Mobile

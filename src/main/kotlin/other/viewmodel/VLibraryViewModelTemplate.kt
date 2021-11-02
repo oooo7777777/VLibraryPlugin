@@ -13,11 +13,9 @@ import java.io.File
  */
 val VLibraryViewModelTemplate
     get() = template {
-        revision = 1
         name = "VLibrary ViewModel"
         description = "适用于VLibrary框架的ViewModel"
-        minApi = MIN_API
-        minBuildApi = MIN_API
+
 
         category = Category.Other
         formFactor = FormFactor.Mobile
