@@ -1,6 +1,13 @@
 ### 基于([VLibrary](https://github.com/oooo7777777/VLibrary))框架,编写的代码模板插件
 ### 开发效率提升80%
 
+### 注意：本插件只在Android studio4.1版本测试过
+``` 
+如遇此插件在其他版本不起作用或者展示不了需要自己手动把代码下载下来更新wizard-template.jar
+更新方法为：使用AndroidStudio安装目录里的wizard-template.jar，位于 /Applications/Android\ Studio.app/Contents/plugins/android/lib/目录下。
+替换掉本项目跟目录里lib文件夹里面的wizard-template.jar，重新编译即可。
+```
+
 #### 痛点解决
 - 每次写代码都要做很多得重复动作
 > 以一个MVVM架构为例,新建Activity-&gt;继承Base类-&gt;写ViewModel-&gt;写bean--&gt;修改xml--&gt;然后各种关系得绑定,引用等等..
