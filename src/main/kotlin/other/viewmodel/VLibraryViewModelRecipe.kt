@@ -64,5 +64,4 @@ fun RecipeExecutor.VLibraryViewModelRecipe(
 
     open(srcOut.resolve("viewmodel/$viewModelName.$ktOrJavaExt"))
 
-
 }
