@@ -78,16 +78,17 @@ fun getHeaderString(author: String, classDesc: String): String {
  */
 fun getResPrefixClass(aPk: String, resourcePrefixName: String, isResPrefix: Boolean): String {
     //判断约束资源名称用户是否输入
-    return if (!resourcePrefixName.isNullOrEmpty()) {
-        resourcePrefixName.toUpperCase()
-    } else {
-        //判断是否选中了约束按钮
-        if (isResPrefix) {
-            getResourcePrefix(aPk).toUpperCase()
-        } else {
-            ""
-        }
-    }
+//    return if (!resourcePrefixName.isNullOrEmpty()) {
+//        resourcePrefixName.toUpperCase()
+//    } else {
+//        //判断是否选中了约束按钮
+//        if (isResPrefix) {
+//            getResourcePrefix(aPk).toUpperCase()
+//        } else {
+//            ""
+//        }
+//    }
+    return ""
 }
 
 /**
@@ -514,13 +515,13 @@ fun getStrDialog(
     return """
 package ${applicationPackage}.dialog
 
+import android.content.Context
 import android.view.View
-import com.v.base.VBBlankViewModel
-import com.v.base.dialog.VBDialogFragment
+import com.v.base.dialog.VBDialog
 import ${applicationPackage}.databinding.${lastLayoutName}Binding
 
 ${headerString}
-class ${className} : VBDialogFragment<${lastLayoutName}Binding,VBBlankViewModel>(), View.OnClickListener {
+class ${className}(mContext: Context) : VBDialog<${lastLayoutName}Binding>(mContext), View.OnClickListener {
    
 
     private var listener: ((dialog: ${className}, position: Int) -> Unit)? = null
@@ -534,14 +535,10 @@ class ${className} : VBDialogFragment<${lastLayoutName}Binding,VBBlankViewModel>
     override fun initData() {
         mDataBinding.v = this
         
-//        ${className}()
+//        ${className}(mContext)
 //            .setClickListener { dialog, position ->
 //
-//            }.show(this)
-    }
-
-    override fun createObserver() {
-
+//            }.show()
     }
 
     override fun onClick(v: View) {

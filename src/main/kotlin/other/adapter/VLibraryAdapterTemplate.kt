@@ -73,7 +73,8 @@ val VLibraryAdapterTemplate
             TextFieldWidget(resourcePrefixName),
             TextFieldWidget(classDesc),
             TextFieldWidget(author),
-            PackageNameWidget(packageName)
+            PackageNameWidget(packageName),
+            LanguageWidget()
         )
 
         thumb { File("template_login_activity.png") }

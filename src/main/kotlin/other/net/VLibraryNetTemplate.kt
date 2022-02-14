@@ -19,7 +19,10 @@ val VLibraryNetTemplate
 
         category = Category.Other
         formFactor = FormFactor.Mobile
-        screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+        screens = listOf(WizardUiContext.ActivityGallery,
+            WizardUiContext.MenuEntry,
+            WizardUiContext.NewProject,
+            WizardUiContext.NewModule)
 
         val packageName = defaultPackageNameParameter
 
@@ -40,18 +43,19 @@ val VLibraryNetTemplate
 
 
         widgets(
-                TextFieldWidget(classDesc),
-                TextFieldWidget(author),
-                PackageNameWidget(packageName)
+            TextFieldWidget(classDesc),
+            TextFieldWidget(author),
+            PackageNameWidget(packageName),
+            LanguageWidget()
         )
 
         thumb { File("template_login_activity.png") }
 
         recipe = { data: TemplateData ->
             VLibraryNetRecipe(
-                    data as ModuleTemplateData,
-                    packageName.value,
-                    getHeaderString(author.value, classDesc.value))
+                data as ModuleTemplateData,
+                packageName.value,
+                getHeaderString(author.value, classDesc.value))
         }
     }
 
