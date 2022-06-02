@@ -21,7 +21,7 @@ class ApiResponse<T> : VBResponse<T>() {
     var data: T? = null
 
     // 这里是示例，wanandroid 网站返回的 错误码为 0 就代表请求成功，请你根据自己的业务需求来编写
-    override fun isSuccess() = status == 100
+    override fun isSuccess() = status == 0
 
     override fun getResponseCode() = status
 

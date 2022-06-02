@@ -1,10 +1,6 @@
 package other.utlis
 
 import android.databinding.tool.ext.toCamelCase
-import android.databinding.tool.ext.toCamelCaseAsVar
-import com.android.tools.idea.wizard.template.AssetNameConverter
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
-import org.jetbrains.kotlin.util.capitalizeDecapitalize.toUpperCaseAsciiOnly
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -207,7 +203,7 @@ fun getStrViewModule(apk: String, className: String, headerString: String): Stri
 package ${apk}.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.v.base.VBApplication.Companion.apiBase
+import com.v.base.apiBase
 import com.v.base.VBViewModel
 import ${apk}.bean.${className}Bean
 
@@ -353,10 +349,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import android.graphics.Color
 import com.v.base.VB${typeName}
-import com.v.base.utils.ext.vbDivider
-import com.v.base.utils.ext.vbLinear
-import com.v.base.utils.ext.vbConfig
-import com.v.base.utils.ext.vbLoad
+import com.v.base.utils.*
 import ${applicationPackage}.adapter.${className}Adapter
 import ${applicationPackage}.viewmodel.${className}ViewModel
 import ${applicationPackage}.databinding.${xmlName}Binding
@@ -380,7 +373,7 @@ class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}Vie
                     onLoadMore={
                         mViewModel.getData(page)
                     },
-                    onItemClick = { view, position ->
+                    onItemClick = {adapter, view, position ->
                         
                     })
             } as ${className}Adapter
@@ -397,11 +390,7 @@ class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}Vie
     override fun createObserver() {
         mViewModel.bean.observe(this, Observer {
             it.data?.run {
-                 mAdapter.vbLoad(this, page, mDataBinding.refreshLayout,
-                    onSuccess = {
-                         page = it
-                    })
-
+                 page = mAdapter.vbLoad(it.datas, page, mDataBinding.refreshLayout)
             }
 
         })
@@ -469,18 +458,19 @@ fun getStrTitle(titleName: String, title: String): String {
         ""
     } else {
         """
-    override fun toolBarTitle(
+     override fun toolBarTitle(
         title: String,
         titleColor: Int,
         isShowBottomLine: Boolean,
-        listener: View.OnClickListener?
-    ) {
+        listener: View.OnClickListener?,
+    ): Boolean {
         super.toolBarTitle(
             this.getString(R.string.${titleName}),
             titleColor,
             isShowBottomLine,
             listener
         )
+        return true
     }
     """
     }
