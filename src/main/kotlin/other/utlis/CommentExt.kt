@@ -462,13 +462,15 @@ fun getStrTitle(titleName: String, title: String): String {
         title: String,
         titleColor: Int,
         isShowBottomLine: Boolean,
-        listener: View.OnClickListener?,
+        res: Int,
+        listenerLeft: View.OnClickListener?
     ): Boolean {
         super.toolBarTitle(
             this.getString(R.string.${titleName}),
             titleColor,
             isShowBottomLine,
-            listener
+            res,
+            listenerLeft
         )
         return true
     }
