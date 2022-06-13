@@ -390,7 +390,7 @@ class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}Vie
     override fun createObserver() {
         mViewModel.bean.observe(this, Observer {
             it.data?.run {
-                 page = mAdapter.vbLoad(it.datas, page, mDataBinding.refreshLayout)
+                 page = mAdapter.vbLoad(it.data, page, mDataBinding.refreshLayout)
             }
 
         })
@@ -462,14 +462,14 @@ fun getStrTitle(titleName: String, title: String): String {
         title: String,
         titleColor: Int,
         isShowBottomLine: Boolean,
-        res: Int,
+        resLeft: Int,
         listenerLeft: View.OnClickListener?
     ): Boolean {
         super.toolBarTitle(
             this.getString(R.string.${titleName}),
             titleColor,
             isShowBottomLine,
-            res,
+            resLeft,
             listenerLeft
         )
         return true
