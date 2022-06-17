@@ -13,8 +13,7 @@ pluginSinceBuild表示插件适配的最低版本，pluginUntilBuild表示插件
 这个pluginSinceBuild跟你的AS About Build后面对应版本，否则会出现plugin不能导入lib的问题
 
 ```
-![pluginSinceBuild](https://github.com/oooo7777777/VLibraryPlugin/blob/master/781655431713_.pic.jpg")
-
+![pluginSinceBuild](https://github.com/oooo7777777/VLibraryPlugin/blob/master/781655431713_.pic.jpg "Dingtalk_20210326175103.jpg")
 
 #### 痛点解决
 - 每次写代码都要做很多得重复动作
