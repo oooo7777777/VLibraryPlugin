@@ -13,7 +13,7 @@ pluginSinceBuild表示插件适配的最低版本，pluginUntilBuild表示插件
 这个pluginSinceBuild跟你的AS About Build后面对应版本，否则会出现plugin不能导入lib的问题
 
 ```
-![pluginSinceBuild](https://github.com/oooo7777777/VLibraryPlugin/blob/master/781655431713_.pic.jpg "Dingtalk_20210326175103.jpg")
+![pluginSinceBuild](https://images.gitee.com/uploads/images/2022/0617/110040_36adc398_699199.jpeg "781655431713.jpg")
 
 #### 痛点解决
 - 每次写代码都要做很多得重复动作
@@ -50,10 +50,10 @@ pluginSinceBuild表示插件适配的最低版本，pluginUntilBuild表示插件
 
 
 #### 使用
-
 - 创建模板
-![创建模板](https://github.com/oooo7777777/VLibraryPlugin/blob/master/791655432197_.pic.jpg")
+![创建模板](https://images.gitee.com/uploads/images/2022/0617/110102_0686e614_699199.jpeg "791655432197.jpg")
 
 
 - 输入框解释(鼠标移动到输入框上面有相对应的中文提示)
-![鼠标移动到输入框上面有相对于得中文提示](https://github.com/oooo7777777/VLibraryPlugin/blob/master/801655432238_.pic.jpg")
+![鼠标移动到输入框上面有相对于得中文提示](https://images.gitee.com/uploads/images/2022/0617/110053_b5e85fb8_699199.jpeg "801655432238.jpg")
+
