@@ -36,7 +36,7 @@ pluginSinceBuild表示插件适配的最低版本，pluginUntilBuild表示插件
 
 
 #### 1.安装方法
-- [下载](https://github.com/oooo7777777/VLibraryPlugin/blob/master/VLibraryPlugin-3.0.4.jar) 
+- [下载](https://github.com/oooo7777777/VLibraryPlugin/blob/master/VLibraryPlugin-3.0.6.jar) 
 - Android Studio File-&gt; Settings -&gt; Plugins -&gt; install plugin from disk..导入下载的 VLibraryPlugin.jar
 - 重启 Android Studio .
 
