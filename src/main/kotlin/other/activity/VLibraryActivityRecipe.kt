@@ -21,7 +21,8 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     isViewMode: Boolean,//是否生成ViewMode代码
     isResourcePrefix: Boolean,//是否约束资源命名
     headerString: String,//注释
-    resourcePrefixName: String//资源自己约束
+    resourcePrefixName: String,//资源自己约束
+    orientation: VLibraryActivityOrientation//Activity显示方向
 ) {
 
     val (projectData, srcOut, resOut, manifestOut) = moduleData
@@ -35,12 +36,13 @@ fun RecipeExecutor.VLibraryActivityRecipe(
 
 
     //获取约束资源命名class
-    var resourcePrefixClass = getResPrefixClass(applicationPackage, resourcePrefixName,isResourcePrefix)
-
+    val resourcePrefixClass =
+        getResPrefixClass(applicationPackage, resourcePrefixName, isResourcePrefix)
 
 
     //获取约束资源命名xml
-    var resourcePrefixXml = getResPrefixXml(applicationPackage,resourcePrefixName, isResourcePrefix)
+    val resourcePrefixXml =
+        getResPrefixXml(applicationPackage, resourcePrefixName, isResourcePrefix)
 
 
     //获取包名根目录 用来生成 bean adapter ViewModel 的路径
@@ -125,21 +127,10 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         )
 
     }
-
-    //添加activity到Manifest
-//    generateManifest(
-//            moduleData = moduleData,
-//            activityClass = "${className}Activity",
-//            activityTitle = className,
-//            packageName = packageName,
-//            isLauncher = false,
-//            hasNoActionBar = false,
-//            generateActivityTitle = false
-//    )
-
+    val activityClass = "$packageName.$lastClassNameFormat"
     //添加activity到Manifest
     mergeXml(
-        getStrAndroidManifestXml("${packageName}.${lastClassNameFormat}"),
+        getStrAndroidManifestXml(activityClass, orientation.toString()),
         manifestOut.resolve("AndroidManifest.xml")
     )
 

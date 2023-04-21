@@ -5,6 +5,7 @@ import android.databinding.tool.ext.toCamelCase
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
+import other.utlis.defaultPackageNameParameter
 import other.utlis.getHeaderString
 import java.io.File
 
@@ -32,7 +33,7 @@ val VLibraryFragmentTemplate
 
         val className = stringParameter {
             name = "Fragment Name"
-            default = "Main"
+            default = ""
             help = "只输入名字，不要包含Fragment"
             constraints = listOf(Constraint.UNIQUE, Constraint.NONEMPTY)
         }
@@ -105,14 +106,5 @@ val VLibraryFragmentTemplate
                 resourcePrefixName.value
             )
         }
-    }
-
-val defaultPackageNameParameter
-    get() = stringParameter {
-        name = "Package name"
-        visible = { !isNewModule }
-        default = "com.v.app"
-        constraints = listOf(Constraint.PACKAGE)
-        suggest = { packageName }
     }
 

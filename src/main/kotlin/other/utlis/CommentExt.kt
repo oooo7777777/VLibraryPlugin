@@ -1,6 +1,9 @@
 package other.utlis
 
 import android.databinding.tool.ext.toCamelCase
+import com.android.tools.idea.wizard.template.Constraint
+import com.android.tools.idea.wizard.template.stringParameter
+import other.activity.VLibraryActivityOrientation
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -11,6 +14,15 @@ import java.util.*
  * time    : 2021/3/2 15:50
  */
 
+val defaultPackageNameParameter
+    get() = stringParameter {
+        name = "Package name"
+        visible = { !isNewModule }
+        default = "com.v.app"
+        constraints = listOf(Constraint.PACKAGE)
+        suggest = { packageName }
+    }
+
 /**
  * srcOut 文件地址
  * applicationPackage 包名
@@ -18,13 +30,13 @@ import java.util.*
  * 通过创建的文件 拿到包名的根目录用来创建bean model adapter类
  */
 fun getApplicationPackageFile(srcOut: File, applicationPackage: String): File {
-    var applicationPackageFile = srcOut.path.toString()
-    var pk = applicationPackage.replace(".", "\\")
+    val applicationPackageFile = srcOut.path.toString()
+    val pk = applicationPackage.replace(".", "/")
 
     val status: Boolean = applicationPackageFile.contains(pk)
     return if (status) {
-        var file =
-            applicationPackageFile.substring(0, applicationPackageFile.indexOf(pk)) + pk + "\\"
+        val file =
+            applicationPackageFile.substring(0, applicationPackageFile.indexOf(pk)) + pk + "/"
         File(file)
     } else {
         srcOut
@@ -40,8 +52,8 @@ fun getApplicationPackageFile(srcOut: File, applicationPackage: String): File {
  * 获取包名的最后一级的第一位字母为约束字段
  */
 fun getResourcePrefix(applicationPackage: String): String {
-    var pk = applicationPackage.split(".")
-    var lastName = pk[pk.size - 1]
+    val pk = applicationPackage.split(".")
+    val lastName = pk[pk.size - 1]
     return lastName.substring(0, 1)
 }
 
@@ -56,8 +68,8 @@ fun getFormatName(className: String, type: String = ""): String {
  * 获取注释
  */
 fun getHeaderString(author: String, classDesc: String): String {
-    var date = Date(System.currentTimeMillis())
-    var format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    val date = Date(System.currentTimeMillis())
+    val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
     return "" +
             "/**\n" +
@@ -140,10 +152,9 @@ fun getStrXml(
            
     </data>
     
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
@@ -160,7 +171,7 @@ fun getStrXml(
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
    
 </layout>
 """
@@ -182,12 +193,11 @@ fun getStrXml(
             
     </data>
     
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
    
 </layout>
 """
@@ -210,14 +220,14 @@ import ${apk}.bean.${className}Bean
 ${headerString}
 class ${className}ViewModel : VBViewModel() {
 
-    var bean = MutableLiveData<${className}Bean>()
+    var bean = MutableLiveData<ArrayList<${className}Bean>>()
 
     fun getData(page: Int) {
         val map = mapOf(
             "pageNum" to page.toString()
         )
         vbRequest({
-            apiBase.get("https://gank.io/api/v2/data/category/Girl/type/Girl/page/"+page+"/count/20")
+            apiBase.get("https://gank.io/",map)
         },
             bean
         )
@@ -237,14 +247,14 @@ package ${apk}.adapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import ${apk}.R
-import ${apk}.bean.${className}Data
+import ${apk}.bean.${className}Bean
 import ${apk}.databinding.${itemName.toCamelCase()}Binding
     
 ${headerString}
 class ${className}Adapter :
-    BaseQuickAdapter<${className}Data, BaseDataBindingHolder<${itemName.toCamelCase()}Binding>>(R.layout.${itemName}) {
+    BaseQuickAdapter<${className}Bean, BaseDataBindingHolder<${itemName.toCamelCase()}Binding>>(R.layout.${itemName}) {
 
-    override fun convert(holder: BaseDataBindingHolder<${itemName.toCamelCase()}Binding>, item: ${className}Data) {
+    override fun convert(holder: BaseDataBindingHolder<${itemName.toCamelCase()}Binding>, item: ${className}Bean) {
         holder.dataBinding?.run {
            bean = item
            executePendingBindings()
@@ -264,29 +274,8 @@ package ${apk}.bean
     
 ${headerString}
 data class ${className}Bean(
-     val `data`: List<${className}Data>,
-     val page: Int,
-     val page_count: Int,
-     val status: Int,
-     val total_counts: Int
-)
-    
-data class ${className}Data(
-     val _id: String,
-     val author: String,
-     val category: String,
-     val createdAt: String,
-     val desc: String,
-     val images: List<String>,
-     val likeCounts: Int,
-     val publishedAt: String,
-     val stars: Int,
-     val title: String,
-     val type: String,
-     val url: String,
-     val views: Int
-)
-    """
+     val title: String=""
+) """
 }
 
 
@@ -305,22 +294,20 @@ fun getStrXmlItem(apk: String, className: String): String {
           <import type="${apk}.R" />
           <variable
             name="bean"
-            type="${apk}.bean.${className}Data" />
+            type="${apk}.bean.${className}Bean" />
     </data>
     
-      <LinearLayout
+      <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"">
 
-        <ImageView
-            android:id="@+id/ivIcon"
+        <TextView
             android:layout_width="match_parent"
-            android:scaleType="centerCrop"
-            app:vb_img_url="@{bean.url}"
+            tools:text="title"
+            android:text="@{bean.title}"
             android:layout_height="match_parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
    
 </layout>
         """
@@ -383,14 +370,13 @@ class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}Vie
     
     override fun initData() {
         mDataBinding.v = this
-        mAdapter
-        mDataBinding.refreshLayout.autoRefresh()
+        mViewModel.getData(page)
     }
 
     override fun createObserver() {
         mViewModel.bean.observe(this, Observer {
-            it.data?.run {
-                 page = mAdapter.vbLoad(it.data, page, mDataBinding.refreshLayout)
+            it?.run {
+                 page = mAdapter.vbLoad(it, page, mDataBinding.refreshLayout)
             }
 
         })
@@ -483,12 +469,15 @@ fun getStrTitle(titleName: String, title: String): String {
  * 获取Activity注册 生成代码
  */
 fun getStrAndroidManifestXml(
-    activityClass: String
+    activityClass: String,
+    orientation: String//Activity显示方向
 ): String {
     return """
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
-        <activity android:name="${activityClass}"/>
+        <activity 
+            android:name="$activityClass"
+            android:screenOrientation="$orientation" />
     </application>
 </manifest>
 """

@@ -6,6 +6,7 @@ import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.AssetNameConverter.Type
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
+import other.utlis.defaultPackageNameParameter
 import other.utlis.getHeaderString
 import java.io.File
 
@@ -33,7 +34,7 @@ val VLibraryDialogTemplate
 
         val className = stringParameter {
             name = "Dialog Name"
-            default = "Main"
+            default = ""
             help = "只输入名字，不要包含Dialog"
             constraints = listOf(Constraint.NONEMPTY)
         }
@@ -101,14 +102,6 @@ val VLibraryDialogTemplate
         }
     }
 
-val defaultPackageNameParameter
-    get() = stringParameter {
-        name = "Package name"
-        visible = { !isNewModule }
-        default = "com.v.app"
-        constraints = listOf(Constraint.PACKAGE)
-        suggest = { packageName }
-    }
 
 fun dialogToLayout(dialogName: String, layoutName: String? = null): String =
     if (dialogName.isNotEmpty())

@@ -3,6 +3,7 @@ package other.viewmodel
 
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.utlis.defaultPackageNameParameter
 import other.utlis.getHeaderString
 import java.io.File
 
@@ -30,7 +31,7 @@ val VLibraryViewModelTemplate
 
         val className = stringParameter {
             name = "ViewModel Name"
-            default = "Main"
+            default = ""
             help = "只输入名字，不要包含ViewModel"
             constraints = listOf(Constraint.NONEMPTY)
         }
@@ -86,12 +87,5 @@ val VLibraryViewModelTemplate
         }
     }
 
-val defaultPackageNameParameter
-    get() = stringParameter {
-        name = "Package name"
-        visible = { !isNewModule }
-        default = "com.v.app"
-        constraints = listOf(Constraint.PACKAGE)
-        suggest = { packageName }
-    }
+
 

@@ -7,6 +7,7 @@ package other.net
  */
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.utlis.defaultPackageNameParameter
 import other.utlis.getHeaderString
 import java.io.File
 
@@ -57,14 +58,5 @@ val VLibraryNetTemplate
                 packageName.value,
                 getHeaderString(author.value, classDesc.value))
         }
-    }
-
-val defaultPackageNameParameter
-    get() = stringParameter {
-        name = "Package name"
-        visible = { !isNewModule }
-        default = "com.v.app"
-        constraints = listOf(Constraint.PACKAGE)
-        suggest = { packageName }
     }
 

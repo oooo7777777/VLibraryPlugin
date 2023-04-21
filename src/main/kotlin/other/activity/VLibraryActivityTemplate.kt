@@ -3,7 +3,7 @@ package other.activity
 
 import android.databinding.tool.ext.toCamelCase
 import com.android.tools.idea.wizard.template.*
-import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import other.utlis.defaultPackageNameParameter
 import other.utlis.getHeaderString
 import java.io.File
 
@@ -16,7 +16,6 @@ val VLibraryActivityTemplate
     get() = template {
         name = "VLibrary Activity"
         description = "适用于VLibrary框架的Activity"
-
 
         category = Category.Other
         formFactor = FormFactor.Mobile
@@ -31,7 +30,7 @@ val VLibraryActivityTemplate
 
         val className = stringParameter {
             name = "Activity Name"
-            default = "Main"
+            default = ""
             help = "只输入名字，不要包含Activity"
             constraints = listOf(Constraint.NONEMPTY)
         }
@@ -54,7 +53,6 @@ val VLibraryActivityTemplate
             name = "Is ResourcePrefix"
             default = true
             help = "是否约束资源文件命名(自动识别,组件化开发的时候勾选)"
-
         }
 
         val resourcePrefixName = stringParameter {
@@ -74,7 +72,6 @@ val VLibraryActivityTemplate
             help = "开发者"
             default = ""
             constraints = listOf(Constraint.NONEMPTY)
-
         }
 
         val classDesc = stringParameter {
@@ -84,6 +81,11 @@ val VLibraryActivityTemplate
             constraints = listOf(Constraint.NONEMPTY)
         }
 
+        val actOrientation = enumParameter<VLibraryActivityOrientation> {
+            name = "Activity Orientation"
+            default = VLibraryActivityOrientation.portrait
+            help = "Activity显示方向"
+        }
 
         widgets(
             TextFieldWidget(className),
@@ -110,18 +112,10 @@ val VLibraryActivityTemplate
                 isViewMode.value,
                 isResourcePrefix.value,
                 getHeaderString(author.value, classDesc.value),
-                resourcePrefixName.value
+                resourcePrefixName.value,
+                actOrientation.value
             )
         }
-    }
-
-val defaultPackageNameParameter
-    get() = stringParameter {
-        name = "Package name"
-        visible = { !isNewModule }
-        default = "com.v.app"
-        constraints = listOf(Constraint.PACKAGE)
-        suggest = { packageName }
     }
 
 
