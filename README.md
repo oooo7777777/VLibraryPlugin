@@ -3,7 +3,8 @@
 
 ``` 
 如遇此插件在其他版本不起作用或者展示不了需要自己手动把代码下载下来更新wizard-template.jar
-更新方法为：使用AndroidStudio安装目录里的wizard-template.jar，位于 /Applications/AndroidStudio.app/Contents/plugins/android/lib/目录下。
+更新方法为：使用AndroidStudio安装目录里的wizard-template.jar，
+位于 /Applications/AndroidStudio.app/Contents/plugins/android/lib/目录下。
 替换掉本项目跟目录里lib文件夹里面的wizard-template.jar，重新编译即可。
 
 修改gradle.properties
