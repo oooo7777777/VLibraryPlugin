@@ -1,11 +1,26 @@
 package other.adapter
 
-
-import android.databinding.tool.ext.toCamelCase
-import com.android.tools.idea.wizard.template.*
+import com.android.tools.idea.wizard.template.Category
+import com.android.tools.idea.wizard.template.CheckBoxWidget
+import com.android.tools.idea.wizard.template.Constraint.CLASS
+import com.android.tools.idea.wizard.template.Constraint.LAYOUT
+import com.android.tools.idea.wizard.template.Constraint.NONEMPTY
+import com.android.tools.idea.wizard.template.Constraint.UNIQUE
+import com.android.tools.idea.wizard.template.FormFactor
+import com.android.tools.idea.wizard.template.LanguageWidget
+import com.android.tools.idea.wizard.template.ModuleTemplateData
+import com.android.tools.idea.wizard.template.PackageNameWidget
+import com.android.tools.idea.wizard.template.StringParameter
+import com.android.tools.idea.wizard.template.TemplateData
+import com.android.tools.idea.wizard.template.TextFieldWidget
+import com.android.tools.idea.wizard.template.WizardUiContext
+import com.android.tools.idea.wizard.template.activityToLayout
+import com.android.tools.idea.wizard.template.booleanParameter
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
+import com.android.tools.idea.wizard.template.impl.defaultPackageNameParameter
+import com.android.tools.idea.wizard.template.stringParameter
+import com.android.tools.idea.wizard.template.template
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
-import other.utlis.defaultPackageNameParameter
 import other.utlis.getHeaderString
 import java.io.File
 
@@ -35,7 +50,7 @@ val VLibraryAdapterTemplate
             name = "Adapter Name"
             default = ""
             help = "只输入名字，不要包含Adapter"
-            constraints = listOf(Constraint.NONEMPTY)
+            constraints = listOf(NONEMPTY)
         }
 
         val isResourcePrefix = booleanParameter {
@@ -55,7 +70,7 @@ val VLibraryAdapterTemplate
             name = "Author"
             help = "开发者"
             default = ""
-            constraints = listOf(Constraint.NONEMPTY)
+            constraints = listOf(NONEMPTY)
 
         }
 
@@ -63,7 +78,7 @@ val VLibraryAdapterTemplate
             name = "Description"
             help = "描述一下方法的作用"
             default = ""
-            constraints = listOf(Constraint.NONEMPTY)
+            constraints = listOf(NONEMPTY)
 
         }
 
@@ -78,7 +93,7 @@ val VLibraryAdapterTemplate
             LanguageWidget()
         )
 
-        thumb { File("template_login_activity.png") }
+        thumb { File("template_blank_activity.png") }
 
         recipe = { data: TemplateData ->
             VLibraryAdapterRecipe(

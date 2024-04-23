@@ -92,7 +92,7 @@ val VLibraryFragmentTemplate
             LanguageWidget()
         )
 
-        thumb { File("template_login_activity.png") }
+        thumb { File("template_blank_activity.png") }
 
         recipe = { data: TemplateData ->
             VLibraryFragmentRecipe(
