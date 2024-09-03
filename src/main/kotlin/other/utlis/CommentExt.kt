@@ -213,12 +213,13 @@ fun getStrViewModule(apk: String, className: String, headerString: String): Stri
 package ${apk}.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.v.base.apiBase
-import com.v.base.VBViewModel
+import com.mrk.network.MrkViewModel
+import com.mrk.network.net.MrkNetwork
+import com.mrk.network.net.request
 import ${apk}.bean.${className}Bean
 
 ${headerString}
-class ${className}ViewModel : VBViewModel() {
+class ${className}ViewModel : MrkViewModel() {
 
     var bean = MutableLiveData<ArrayList<${className}Bean>>()
 
@@ -226,9 +227,10 @@ class ${className}ViewModel : VBViewModel() {
         val map = mapOf(
             "pageNum" to page.toString()
         )
-        vbRequest({
-            apiBase.get("https://gank.io/",map)
-        },
+        request(
+            {
+                MrkNetwork.instance.get("https://gank.io/", map)
+            },
             bean
         )
     }
@@ -299,7 +301,7 @@ fun getStrXmlItem(apk: String, className: String): String {
     
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="match_parent"
@@ -307,7 +309,7 @@ fun getStrXmlItem(apk: String, className: String): String {
             android:text="@{bean.title}"
             android:layout_height="match_parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
    
 </layout>
         """
@@ -344,13 +346,14 @@ import ${applicationPackage}.databinding.${xmlName}Binding
 ${headerString}
 class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}ViewModel>(), View.OnClickListener {
    
-  private var page =1
+  private var page = 1
   
   private val mAdapter by lazy {
-        mDataBinding.recyclerView.vbDivider{
+        mDataBinding.recyclerView
+            .vbLinear(${className}Adapter())
+            .vbDivider{
                 setDivider(5)
             }
-            .vbLinear(${className}Adapter())
             .apply {
                 vbConfig(mDataBinding.refreshLayout,
                     onRefresh = {
@@ -470,17 +473,49 @@ fun getStrTitle(titleName: String, title: String): String {
  */
 fun getStrAndroidManifestXml(
     activityClass: String,
-    orientation: String//Activity显示方向
+    orientation: VLibraryActivityOrientation//Activity显示方向
 ): String {
-    return """
+
+    return when (orientation) {
+        VLibraryActivityOrientation.sensorPortrait,
+        VLibraryActivityOrientation.sensorLandscape -> {
+"""
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
         <activity 
-            android:name="$activityClass"
-            android:screenOrientation="$orientation" />
+           android:name="$activityClass"
+           android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+           android:screenOrientation="$orientation"/>
     </application>
 </manifest>
 """
+        }
+
+        VLibraryActivityOrientation.portrait,
+        VLibraryActivityOrientation.landscape -> {
+"""
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity 
+           android:name="$activityClass"
+            android:screenOrientation="$orientation"/>
+    </application>
+</manifest>
+"""
+        }
+
+        else -> {
+"""
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity 
+            android:name="$activityClass"/>
+    </application>
+</manifest>
+"""
+        }
+    }
+
 }
 
 

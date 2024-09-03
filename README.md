@@ -58,3 +58,8 @@ pluginSinceBuild表示插件适配的最低版本，pluginUntilBuild表示插件
 - 输入框解释(鼠标移动到输入框上面有相对应的中文提示)
 ![鼠标移动到输入框上面有相对于得中文提示](https://images.gitee.com/uploads/images/2022/0617/110053_b5e85fb8_699199.jpeg "801655432238.jpg")
 
+#### 备注
+如遇方法失效或者想更改自己的模板界面,请常考官方写法
+![官方模版](https://android.googlesource.com/platform/tools/base/+/refs/heads/studio-master-dev/wizard/template-impl/src/com/android/tools/idea/wizard/template/impl?autodive=0%2F%2F%2F%2F&fbclid=IwAR31Nz7layKWFaR7RH8WAmI67gqf82e30r1ebgoqmrpXZVkaO9eweBCsrtw%2F%2F%2F%2F%2F)
+
+

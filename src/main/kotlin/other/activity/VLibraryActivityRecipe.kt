@@ -130,7 +130,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     val activityClass = "$packageName.$lastClassNameFormat"
     //添加activity到Manifest
     mergeXml(
-        getStrAndroidManifestXml(activityClass, orientation.toString()),
+        getStrAndroidManifestXml(activityClass, orientation),
         manifestOut.resolve("AndroidManifest.xml")
     )
 

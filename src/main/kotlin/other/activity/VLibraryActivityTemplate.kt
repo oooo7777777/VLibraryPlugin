@@ -78,17 +78,19 @@ val VLibraryActivityTemplate
             name = "Description"
             default = title.value
             help = "描述一下方法的作用"
+            suggest = { title.value }
             constraints = listOf(Constraint.NONEMPTY)
         }
 
         val actOrientation = enumParameter<VLibraryActivityOrientation> {
             name = "Activity Orientation"
-            default = VLibraryActivityOrientation.portrait
+            default = VLibraryActivityOrientation.unspecified
             help = "Activity显示方向"
         }
 
         widgets(
             TextFieldWidget(className),
+            EnumWidget(actOrientation),
             CheckBoxWidget(isViewMode),
             CheckBoxWidget(isResourcePrefix),
             TextFieldWidget(resourcePrefixName),
