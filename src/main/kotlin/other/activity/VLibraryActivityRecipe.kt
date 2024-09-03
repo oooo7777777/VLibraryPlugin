@@ -4,6 +4,8 @@ import android.databinding.tool.ext.toCamelCase
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
+import other.bean.VLibraryActivityOrientation
+import other.bean.VLibraryCreateStyle
 import other.utlis.*
 
 
@@ -18,11 +20,11 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     layoutName: String,//layout 名称
     title: String,//标题 名称
     packageName: String,//当前右键选择新建的路径名称
-    isViewMode: Boolean,//是否生成ViewMode代码
+    createOption: VLibraryCreateStyle,//Activity生成风格
     isResourcePrefix: Boolean,//是否约束资源命名
     headerString: String,//注释
     resourcePrefixName: String,//资源自己约束
-    orientation: VLibraryActivityOrientation//Activity显示方向
+    actOrientationOption: VLibraryActivityOrientation//Activity显示方向
 ) {
 
     val (projectData, srcOut, resOut, manifestOut) = moduleData
@@ -72,7 +74,7 @@ fun RecipeExecutor.VLibraryActivityRecipe(
     save(
         //lastLayoutName.toCamelCase() 这里把m_fragment_main 转换成 MFragmentMain
         getStrClass(
-            isViewMode,
+            createOption,
             applicationPackage,
             packageName,
             lastClassName,
@@ -84,53 +86,78 @@ fun RecipeExecutor.VLibraryActivityRecipe(
         srcOut.resolve("$lastClassNameFormat.$ktOrJavaExt")
     )
 
-    // 保存xml
+    // 保存layout xml
     save(
-        getStrXml(isViewMode, applicationPackage, packageName, lastClassNameFormat, lastItemName),
+        getStrXml(
+            createOption,
+            applicationPackage,
+            packageName,
+            lastClassNameFormat,
+            lastItemName
+        ),
         resOut.resolve("layout/${lastLayoutName}.xml")
     )
 
-
-    if (!title.isNullOrEmpty()) {
-        // 保存titleString
+    // 保存title String
+    if (title.isNotEmpty()) {
         mergeXml(getStrString(lastTitleName, title), resOut.resolve("values/strings.xml"))
     }
+    
 
+    when (createOption) {
+        VLibraryCreateStyle.Activity -> {
+        }
 
+        VLibraryCreateStyle.Activity_ViewModule -> {
+            val viewModelName = getFormatName(lastClassName, "ViewModel") //MainActivityViewModel
+            save(
+                getStrViewModule(applicationPackage, lastClassName, headerString),
+                pkFile.resolve("viewmodel/$viewModelName.$ktOrJavaExt")
+            )
 
-    if (isViewMode) {
-        // 保存viewModel
-        val viewModelName = getFormatName(lastClassName, "ViewModel") //MainActivityViewModel
-        save(
-            getStrViewModule(applicationPackage, lastClassName, headerString),
-            pkFile.resolve("viewmodel/$viewModelName.$ktOrJavaExt")
-        )
+            // 保存bean
+            val beanName = getFormatName(lastClassName, "Bean") //MainActivityBean
+            save(
+                getStrBean(applicationPackage, lastClassName, headerString),
+                pkFile.resolve("bean/$beanName.$ktOrJavaExt")
+            )
+        }
 
-        // 保存bean
-        val beanName = getFormatName(lastClassName, "Bean") //MainActivityBean
-        save(
-            getStrBean(applicationPackage, lastClassName, headerString),
-            pkFile.resolve("bean/$beanName.$ktOrJavaExt")
-        )
+        VLibraryCreateStyle.Activity_ViewModule_RecyclerView -> {
 
-        // 保存adapter
-        val adapterName = getFormatName(lastClassName, "Adapter") //MainActivityAdapter
-        save(
-            getStrAdapter(applicationPackage, lastClassName, lastItemName, headerString),
-            pkFile.resolve("adapter/$adapterName.$ktOrJavaExt")
-        )
+            val viewModelName = getFormatName(lastClassName, "ViewModel") //MainActivityViewModel
+            save(
+                getStrViewModule(applicationPackage, lastClassName, headerString),
+                pkFile.resolve("viewmodel/$viewModelName.$ktOrJavaExt")
+            )
 
-        // 保存adapterItemXml
-        save(
-            getStrXmlItem(applicationPackage, lastClassName),
-            resOut.resolve("layout/$lastItemName.xml")
-        )
+            // 保存bean
+            val beanName = getFormatName(lastClassName, "Bean") //MainActivityBean
+            save(
+                getStrBean(applicationPackage, lastClassName, headerString),
+                pkFile.resolve("bean/$beanName.$ktOrJavaExt")
+            )
 
+            // 保存adapter
+            val adapterName = getFormatName(lastClassName, "Adapter") //MainActivityAdapter
+            save(
+                getStrAdapter(applicationPackage, lastClassName, lastItemName, headerString),
+                pkFile.resolve("adapter/$adapterName.$ktOrJavaExt")
+            )
+
+            // 保存adapterItemXml
+            save(
+                getStrXmlItem(applicationPackage, lastClassName),
+                resOut.resolve("layout/$lastItemName.xml")
+            )
+        }
     }
+
+
     val activityClass = "$packageName.$lastClassNameFormat"
     //添加activity到Manifest
     mergeXml(
-        getStrAndroidManifestXml(activityClass, orientation),
+        getStrAndroidManifestXml(activityClass, actOrientationOption),
         manifestOut.resolve("AndroidManifest.xml")
     )
 

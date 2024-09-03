@@ -5,7 +5,17 @@ import android.databinding.tool.ext.toCamelCase
 import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.escapeKotlinIdentifier
-import other.utlis.*
+import other.bean.VLibraryCreateStyle
+import other.utlis.getApplicationPackageFile
+import other.utlis.getFormatName
+import other.utlis.getResPrefixClass
+import other.utlis.getResPrefixXml
+import other.utlis.getStrAdapter
+import other.utlis.getStrBean
+import other.utlis.getStrClass
+import other.utlis.getStrViewModule
+import other.utlis.getStrXml
+import other.utlis.getStrXmlItem
 
 /**
  * @Author : ww
@@ -13,14 +23,14 @@ import other.utlis.*
  * time    : 2021/2/19 11:10
  */
 fun RecipeExecutor.VLibraryFragmentRecipe(
-        moduleData: ModuleTemplateData,
-        className: String,//类名
-        layoutName: String,//layout 名称
-        packageName: String,//当前右键选择新建的路径名称
-        isViewMode: Boolean,//是否生成ViewMode代码
-        isResourcePrefix: Boolean,//是否约束资源命名
-        headerString: String,//注释
-        resourcePrefixName: String//资源自己约束
+    moduleData: ModuleTemplateData,
+    className: String,//类名
+    layoutName: String,//layout 名称
+    packageName: String,//当前右键选择新建的路径名称
+    createOption: VLibraryCreateStyle,//Fragment生成风格
+    isResourcePrefix: Boolean,//是否约束资源命名
+    headerString: String,//注释
+    resourcePrefixName: String//资源自己约束
 ) {
 
     val (projectData, srcOut, resOut) = moduleData
@@ -32,10 +42,12 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
     }
 
     //获取约束资源命名class
-    var resourcePrefixClass = getResPrefixClass(applicationPackage, resourcePrefixName,isResourcePrefix)
+    val resourcePrefixClass =
+        getResPrefixClass(applicationPackage, resourcePrefixName, isResourcePrefix)
 
     //获取约束资源命名xml
-    var resourcePrefixXml = getResPrefixXml(applicationPackage,resourcePrefixName, isResourcePrefix)
+    val resourcePrefixXml =
+        getResPrefixXml(applicationPackage, resourcePrefixName, isResourcePrefix)
 
     //获取包名根目录 用来生成 bean adapter ViewModel 的路径
     val pkFile = getApplicationPackageFile(srcOut, applicationPackage)
@@ -59,56 +71,77 @@ fun RecipeExecutor.VLibraryFragmentRecipe(
 
     // 保存Fragment
     save(
-            //lastLayoutName.toCamelCase() 这里把m_fragment_main 转换成 MFragmentMain
-            getStrClass(
-                    isViewMode,
-                    applicationPackage,
-                    packageName,
-                    lastClassName,
-                    typeName,
-                    lastLayoutName.toCamelCase(),
-                    "",
-                    headerString
-            ),
-            srcOut.resolve("$lastClassNameFormat.$ktOrJavaExt")
+        //lastLayoutName.toCamelCase() 这里把m_fragment_main 转换成 MFragmentMain
+        getStrClass(
+            createOption,
+            applicationPackage,
+            packageName,
+            lastClassName,
+            typeName,
+            lastLayoutName.toCamelCase(),
+            "",
+            headerString
+        ),
+        srcOut.resolve("$lastClassNameFormat.$ktOrJavaExt")
     )
 
     // 保存xml
     save(
-            getStrXml(isViewMode, applicationPackage, packageName, lastClassNameFormat, lastItemName),
-            resOut.resolve("layout/${lastLayoutName}.xml")
+        getStrXml(createOption, applicationPackage, packageName, lastClassNameFormat, lastItemName),
+        resOut.resolve("layout/${lastLayoutName}.xml")
     )
 
+    when (createOption) {
+        VLibraryCreateStyle.Activity -> {
+        }
 
-    if (isViewMode) {
-        // 保存viewModel
-        val viewModelName = getFormatName(lastClassName, "ViewModel") //MainActivityViewModel
-        save(
+        VLibraryCreateStyle.Activity_ViewModule -> {
+            val viewModelName = getFormatName(lastClassName, "ViewModel") //MainActivityViewModel
+            save(
                 getStrViewModule(applicationPackage, lastClassName, headerString),
                 pkFile.resolve("viewmodel/$viewModelName.$ktOrJavaExt")
-        )
+            )
 
-        // 保存bean
-        val beanName = getFormatName(lastClassName, "Bean") //MainActivityBean
-        save(
+            // 保存bean
+            val beanName = getFormatName(lastClassName, "Bean") //MainActivityBean
+            save(
                 getStrBean(applicationPackage, lastClassName, headerString),
                 pkFile.resolve("bean/$beanName.$ktOrJavaExt")
-        )
+            )
+        }
 
-        // 保存adapter
-        val adapterName = getFormatName(lastClassName, "Adapter") //MainActivityAdapter
-        save(
+        VLibraryCreateStyle.Activity_ViewModule_RecyclerView -> {
+
+            val viewModelName = getFormatName(lastClassName, "ViewModel") //MainActivityViewModel
+            save(
+                getStrViewModule(applicationPackage, lastClassName, headerString),
+                pkFile.resolve("viewmodel/$viewModelName.$ktOrJavaExt")
+            )
+
+            // 保存bean
+            val beanName = getFormatName(lastClassName, "Bean") //MainActivityBean
+            save(
+                getStrBean(applicationPackage, lastClassName, headerString),
+                pkFile.resolve("bean/$beanName.$ktOrJavaExt")
+            )
+
+            // 保存adapter
+            val adapterName = getFormatName(lastClassName, "Adapter") //MainActivityAdapter
+            save(
                 getStrAdapter(applicationPackage, lastClassName, lastItemName, headerString),
                 pkFile.resolve("adapter/$adapterName.$ktOrJavaExt")
-        )
+            )
 
-        // 保存adapterItemXml
-        save(
+            // 保存adapterItemXml
+            save(
                 getStrXmlItem(applicationPackage, lastClassName),
                 resOut.resolve("layout/$lastItemName.xml")
-        )
+            )
 
+        }
     }
+
+
 
     open(srcOut.resolve("${lastClassNameFormat}.${ktOrJavaExt}"))
 

@@ -3,6 +3,8 @@ package other.activity
 
 import android.databinding.tool.ext.toCamelCase
 import com.android.tools.idea.wizard.template.*
+import other.bean.VLibraryActivityOrientation
+import other.bean.VLibraryCreateStyle
 import other.utlis.defaultPackageNameParameter
 import other.utlis.getHeaderString
 import java.io.File
@@ -43,10 +45,10 @@ val VLibraryActivityTemplate
             suggest = { "${activityToLayout(className.value.toCamelCase())}" }
         }
 
-        val isViewMode = booleanParameter {
-            name = "Is ViewMode"
-            default = true
-            help = "是否生成ViewMode代码"
+        val createOption = enumParameter<VLibraryCreateStyle> {
+            name = "Activity Create Style"
+            default = VLibraryCreateStyle.Activity
+            help = "Activity创建方式"
         }
 
         val isResourcePrefix = booleanParameter {
@@ -82,7 +84,7 @@ val VLibraryActivityTemplate
             constraints = listOf(Constraint.NONEMPTY)
         }
 
-        val actOrientation = enumParameter<VLibraryActivityOrientation> {
+        val actOrientationOption = enumParameter<VLibraryActivityOrientation> {
             name = "Activity Orientation"
             default = VLibraryActivityOrientation.unspecified
             help = "Activity显示方向"
@@ -90,8 +92,8 @@ val VLibraryActivityTemplate
 
         widgets(
             TextFieldWidget(className),
-            EnumWidget(actOrientation),
-            CheckBoxWidget(isViewMode),
+            EnumWidget(actOrientationOption),
+            EnumWidget(createOption),
             CheckBoxWidget(isResourcePrefix),
             TextFieldWidget(resourcePrefixName),
             TextFieldWidget(title),
@@ -111,11 +113,11 @@ val VLibraryActivityTemplate
                 "${activityToLayout(className.value.toCamelCase())}",
                 title.value,
                 packageName.value,
-                isViewMode.value,
+                createOption.value,
                 isResourcePrefix.value,
                 getHeaderString(author.value, classDesc.value),
                 resourcePrefixName.value,
-                actOrientation.value
+                actOrientationOption.value
             )
         }
     }

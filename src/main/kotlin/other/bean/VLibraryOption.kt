@@ -1,4 +1,4 @@
-package other.activity
+package other.bean
 
 /**
  * author  : ww
@@ -12,3 +12,17 @@ enum class VLibraryActivityOrientation {
     sensorPortrait,//根据设备的传感器来决定屏幕方向，但只允许竖屏方向。
     sensorLandscape//根据设备的传感器来决定屏幕方向，但只允许横屏方向。
 }
+
+
+enum class VLibraryCreateStyle {
+    Activity,//Activity
+    Activity_ViewModule,//Activity+ViewModule
+    Activity_ViewModule_RecyclerView,//Activity+ViewModule+RecyclerView
+}
+
+enum class VLibraryFragmentCreateStyle {
+    Fragment,//Activity
+    Fragment_ViewModule,//Activity+ViewModule
+    Fragment_ViewModule_RecyclerView,//Activity+ViewModule+RecyclerView
+}
+

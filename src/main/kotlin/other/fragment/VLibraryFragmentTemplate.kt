@@ -1,10 +1,10 @@
 package other.fragment
 
-
 import android.databinding.tool.ext.toCamelCase
 import com.android.tools.idea.wizard.template.*
-import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
+import other.bean.VLibraryCreateStyle
+import other.bean.VLibraryFragmentCreateStyle
 import other.utlis.defaultPackageNameParameter
 import other.utlis.getHeaderString
 import java.io.File
@@ -46,10 +46,10 @@ val VLibraryFragmentTemplate
             suggest = { "${fragmentToLayout(className.value.toCamelCase())}" }
         }
 
-        val isViewMode = booleanParameter {
-            name = "Is ViewMode"
-            default = true
-            help = "是否生成ViewMode代码"
+        val createOption = enumParameter<VLibraryFragmentCreateStyle> {
+            name = "Fragment Create Style"
+            default = VLibraryFragmentCreateStyle.Fragment
+            help = "Fragment创建方式"
         }
 
         val isResourcePrefix = booleanParameter {
@@ -77,13 +77,12 @@ val VLibraryFragmentTemplate
             help = "描述一下方法的作用"
             default = ""
             constraints = listOf(Constraint.NONEMPTY)
-
         }
 
 
         widgets(
             TextFieldWidget(className),
-            CheckBoxWidget(isViewMode),
+            EnumWidget(createOption),
             CheckBoxWidget(isResourcePrefix),
             TextFieldWidget(resourcePrefixName),
             TextFieldWidget(classDesc),
@@ -100,7 +99,19 @@ val VLibraryFragmentTemplate
                 className.value,
                 "${fragmentToLayout(className.value.toLowerCaseAsciiOnly())}",
                 packageName.value,
-                isViewMode.value,
+                when (createOption.value) {
+                    VLibraryFragmentCreateStyle.Fragment -> {
+                        VLibraryCreateStyle.Activity
+                    }
+
+                    VLibraryFragmentCreateStyle.Fragment_ViewModule -> {
+                        VLibraryCreateStyle.Activity_ViewModule
+                    }
+
+                    VLibraryFragmentCreateStyle.Fragment_ViewModule_RecyclerView -> {
+                        VLibraryCreateStyle.Activity_ViewModule_RecyclerView
+                    }
+                },
                 isResourcePrefix.value,
                 getHeaderString(author.value, classDesc.value),
                 resourcePrefixName.value

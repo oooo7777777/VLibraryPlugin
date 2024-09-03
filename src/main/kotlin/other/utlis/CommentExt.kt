@@ -3,7 +3,8 @@ package other.utlis
 import android.databinding.tool.ext.toCamelCase
 import com.android.tools.idea.wizard.template.Constraint
 import com.android.tools.idea.wizard.template.stringParameter
-import other.activity.VLibraryActivityOrientation
+import other.bean.VLibraryCreateStyle
+import other.bean.VLibraryActivityOrientation
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -128,14 +129,14 @@ fun getResPrefixXml(aPk: String, resourcePrefixName: String, isResPrefix: Boolea
  * 当前生成对应类的item
  */
 fun getStrXml(
-    isViewMode: Boolean,
+    createOption: VLibraryCreateStyle,
     applicationPackage: String,
     packageName: String,
     className: String,
     classNameItem: String
 ): String {
-    if (isViewMode) {
-        return """
+    return if (createOption == VLibraryCreateStyle.Activity_ViewModule_RecyclerView) {
+        """
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -176,7 +177,8 @@ fun getStrXml(
 </layout>
 """
     } else {
-        return """
+
+        """
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -242,7 +244,12 @@ class ${className}ViewModel : MrkViewModel() {
 /**
  * 获取Adapter生成代码
  */
-fun getStrAdapter(apk: String, className: String, itemName: String, headerString: String): String {
+fun getStrAdapter(
+    apk: String,
+    className: String,
+    itemName: String,
+    headerString: String
+): String {
     return """
 package ${apk}.adapter
 
@@ -320,7 +327,7 @@ fun getStrXmlItem(apk: String, className: String): String {
  * 获取class 生成代码
  */
 fun getStrClass(
-    isViewMode: Boolean,
+    createOption: VLibraryCreateStyle,//是否生成ViewMode代码
     applicationPackage: String,
     packageName: String,
     className: String,
@@ -328,15 +335,91 @@ fun getStrClass(
     xmlName: String,
     toolBar: String,
     headerString: String
-) = if (isViewMode) {
-    """
+): String {
+
+    return when (createOption) {
+        VLibraryCreateStyle.Activity -> {
+            """
+package ${packageName}
+
+
+import ${applicationPackage}.R
+import com.v.base.VB${typeName}
+import android.view.View
+import com.v.base.VBBlankViewModel
+import ${applicationPackage}.databinding.${xmlName}Binding
+
+${headerString}
+class ${className}${typeName} : VB${typeName}<${xmlName}Binding, VBBlankViewModel>(), View.OnClickListener {
+   
+     ${toolBar}
+ 
+    override fun initData() {
+        mDataBinding.v = this
+    }
+
+    override fun createObserver() {
+
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+           
+        }
+    }
+    
+} 
+"""
+        }
+
+        VLibraryCreateStyle.Activity_ViewModule -> {
+            """
 package ${packageName}
 
 
 import ${applicationPackage}.R
 import android.view.View
 import androidx.lifecycle.Observer
-import android.graphics.Color
+import com.v.base.VB${typeName}
+import ${applicationPackage}.viewmodel.${className}ViewModel
+import ${applicationPackage}.databinding.${xmlName}Binding
+
+${headerString}
+class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}ViewModel>(), View.OnClickListener {
+   
+  private var page = 1
+  
+    ${toolBar}
+    
+    override fun initData() {
+        mDataBinding.v = this
+        mViewModel.getData(page)
+    }
+
+    override fun createObserver() {
+        mViewModel.bean.observe(this, Observer {
+   
+        })
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+           
+        }
+    }
+    
+} 
+"""
+        }
+
+        VLibraryCreateStyle.Activity_ViewModule_RecyclerView -> {
+            """
+package ${packageName}
+
+
+import ${applicationPackage}.R
+import android.view.View
+import androidx.lifecycle.Observer
 import com.v.base.VB${typeName}
 import com.v.base.utils.*
 import ${applicationPackage}.adapter.${className}Adapter
@@ -378,10 +461,7 @@ class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}Vie
 
     override fun createObserver() {
         mViewModel.bean.observe(this, Observer {
-            it?.run {
-                 page = mAdapter.vbLoad(it, page, mDataBinding.refreshLayout)
-            }
-
+           page = mAdapter.vbLoad(it, page, mDataBinding.refreshLayout)
         })
     }
 
@@ -393,40 +473,11 @@ class ${className}${typeName} : VB${typeName}<${xmlName}Binding, ${className}Vie
     
 } 
 """
-} else {
-    """
-package ${packageName}
-
-
-import ${applicationPackage}.R
-import com.v.base.VB${typeName}
-import android.view.View
-import com.v.base.VBBlankViewModel
-import ${applicationPackage}.databinding.${xmlName}Binding
-
-${headerString}
-class ${className}${typeName} : VB${typeName}<${xmlName}Binding, VBBlankViewModel>(), View.OnClickListener {
-   
-     ${toolBar}
- 
-    override fun initData() {
-        mDataBinding.v = this
-    }
-
-    override fun createObserver() {
-
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-           
         }
     }
-    
-} 
-"""
-}
 
+
+}
 
 /**
  * 获取string 生成代码
@@ -479,7 +530,7 @@ fun getStrAndroidManifestXml(
     return when (orientation) {
         VLibraryActivityOrientation.sensorPortrait,
         VLibraryActivityOrientation.sensorLandscape -> {
-"""
+            """
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
         <activity 
@@ -493,7 +544,7 @@ fun getStrAndroidManifestXml(
 
         VLibraryActivityOrientation.portrait,
         VLibraryActivityOrientation.landscape -> {
-"""
+            """
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
         <activity 
@@ -505,7 +556,7 @@ fun getStrAndroidManifestXml(
         }
 
         else -> {
-"""
+            """
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
         <activity 
