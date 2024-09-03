@@ -299,7 +299,7 @@ fun getStrXmlItem(apk: String, className: String): String {
     
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="match_parent"
