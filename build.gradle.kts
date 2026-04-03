@@ -25,7 +25,6 @@ val pluginGroup: String by project
 val pluginName_: String by project
 val pluginVersion: String by project
 val pluginSinceBuild: String by project
-val pluginUntilBuild: String by project
 val pluginVerifierIdeVersions: String by project
 
 val platformType: String by project
@@ -55,7 +54,7 @@ intellij {
     version = platformVersion
     type = platformType
     downloadSources = platformDownloadSources.toBoolean()
-    updateSinceUntilBuild = true
+    updateSinceUntilBuild = false
 
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
     setPlugins(*platformPlugins.split(',').map(String::trim).filter(String::isNotEmpty).toTypedArray())
@@ -94,10 +93,13 @@ tasks {
         jvmTarget = "1.8"
     }
 
+    withType<org.jetbrains.intellij.tasks.BuildSearchableOptionsTask> {
+        enabled = false
+    }
+
     patchPluginXml {
         version(pluginVersion)
         sinceBuild(pluginSinceBuild)
-        untilBuild(pluginUntilBuild)
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
 
@@ -114,12 +116,52 @@ tasks {
         ideVersions(pluginVerifierIdeVersions)
     }
 
+    withType<org.jetbrains.intellij.tasks.RunIdeTask> {
+        if (org.gradle.api.JavaVersion.current().isJava9Compatible) {
+            jvmArgs(
+                "--add-opens=java.base/java.io=ALL-UNNAMED",
+                "--add-opens=java.base/java.lang=ALL-UNNAMED",
+                "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED",
+                "--add-opens=java.base/java.net=ALL-UNNAMED",
+                "--add-opens=java.base/java.nio=ALL-UNNAMED",
+                "--add-opens=java.base/java.nio.charset=ALL-UNNAMED",
+                "--add-opens=java.base/java.text=ALL-UNNAMED",
+                "--add-opens=java.base/java.time=ALL-UNNAMED",
+                "--add-opens=java.base/java.util=ALL-UNNAMED",
+                "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED",
+                "--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED",
+                "--add-opens=java.base/jdk.internal.vm=ALL-UNNAMED",
+                "--add-opens=java.base/sun.nio.ch=ALL-UNNAMED",
+                "--add-opens=java.base/sun.security.ssl=ALL-UNNAMED",
+                "--add-opens=java.base/sun.security.util=ALL-UNNAMED",
+                "--add-opens=java.desktop/java.awt=ALL-UNNAMED",
+                "--add-opens=java.desktop/java.awt.dnd.peer=ALL-UNNAMED",
+                "--add-opens=java.desktop/java.awt.event=ALL-UNNAMED",
+                "--add-opens=java.desktop/java.awt.image=ALL-UNNAMED",
+                "--add-opens=java.desktop/java.awt.peer=ALL-UNNAMED",
+                "--add-opens=java.desktop/javax.swing=ALL-UNNAMED",
+                "--add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED",
+                "--add-opens=java.desktop/javax.swing.text.html=ALL-UNNAMED",
+                "--add-opens=java.desktop/sun.awt.datatransfer=ALL-UNNAMED",
+                "--add-opens=java.desktop/sun.awt.image=ALL-UNNAMED",
+                "--add-opens=java.desktop/sun.awt=ALL-UNNAMED",
+                "--add-opens=java.desktop/sun.font=ALL-UNNAMED",
+                "--add-opens=java.desktop/sun.java2d=ALL-UNNAMED",
+                "--add-opens=java.desktop/sun.swing=ALL-UNNAMED",
+                "--add-opens=jdk.attach/sun.tools.attach=ALL-UNNAMED",
+                "--add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
+                "--add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED",
+                "--add-opens=jdk.jdi/com.sun.tools.jdi=ALL-UNNAMED"
+            )
+        }
+    }
+
     publishPlugin {
         dependsOn("patchChangelog")
         token(System.getenv("PUBLISH_TOKEN"))
         // pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
-        channels(pluginVersion.split('-').getOrElse(1) { "default" }.split('.').first())
+        channels(pluginVersion.split('-').getOrElse(1) { "default" }.split('.').get(0))
     }
 }

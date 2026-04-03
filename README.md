@@ -43,7 +43,7 @@ pluginSinceBuild表示插件适配的最低版本，pluginUntilBuild表示插件
 
 #### 2.安装方法
 - 源代码下载下来,编译
-- 运行 Run Plugin
+- 运行 Run Plugin 或者 执行命令./gradlew runIde
 - 打开\intellij-platform-plugin-template-main\build\libs\找到里面的VLibraryPlugin.jar
 - Android Studio File-&gt; Settings -&gt; Plugins -&gt; install plugin from disk..导入生成的 VLibraryPlugin.jar
 - 重启 Android Studio .
